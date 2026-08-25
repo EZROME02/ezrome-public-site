@@ -79,3 +79,7 @@ createRoot(document.getElementById("root")!).render(
     </QueryClientProvider>
   </trpc.Provider>
 );
+// Offline mode is intentionally limited to the cached shell and user-downloaded media.
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => { void navigator.serviceWorker.register("/sw.js"); });
+}

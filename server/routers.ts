@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { COOKIE_NAME } from "@shared/const";
-import { addVideo, createPost, followChannel, getOrCreateChannel, getVideoById, incrementShare, listChannel, listNotifications, listPosts, listVideos, removeFollow } from "./db";
+import { addVideo, createPost, followChannel, getOrCreateChannel, getVideoById, incrementShare, listChannel, listNotifications, listPosts, listVideos, listOfflineDownloadRecords, getDownloadCandidate, removeFollow } from "./db";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
-import { storagePut } from "./storage";
+import { storageGetSignedUrl, storagePut } from "./storage";
 import { assertAllowedThumbnailUpload, assertAllowedVideoUpload, safeUploadName } from "./videoValidation";
 
 const MAX_BASE64_CHARS = 17_000_000;
@@ -24,6 +24,12 @@ export const appRouter = router({
     channel: publicProcedure.input(z.object({ handle: z.string().min(1).max(64) })).query(({ input }) => listChannel(input.handle)),
     community: publicProcedure.input(z.object({ topic: z.enum(["community", "football", "build"]).optional() }).optional()).query(({ input }) => listPosts(input?.topic)),
     notifications: protectedProcedure.query(({ ctx }) => listNotifications(ctx.user.id)),
+    offlineLibrary: protectedProcedure.query(({ ctx }) => listOfflineDownloadRecords(ctx.user.id)),
+    offlineTicket: protectedProcedure.input(z.object({ id: z.number().int().positive() })).query(async ({ ctx, input }) => {
+      const candidate = await getDownloadCandidate(ctx.user.id, input.id);
+      if (!candidate) throw new Error("This video is not available for offline playback.");
+      return { id: candidate.id, title: candidate.title, format: candidate.format, mimeType: candidate.mimeType, channelName: candidate.channelName, url: await storageGetSignedUrl(candidate.videoKey) };
+    }),
     station: protectedProcedure.query(async ({ ctx }) => {
       const channel = await getOrCreateChannel(ctx.user);
       if (!channel) throw new Error("Channel setup is temporarily unavailable.");

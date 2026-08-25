@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { ArrowRight, Bell, Clapperboard, Compass, Film, MessageCircle, Plus, Radio, Search, Trophy, UserRound } from "lucide-react";
+import { ArrowRight, Bell, Clapperboard, Compass, Film, MessageCircle, Plus, Radio, Search, Trophy, UserRound, Library } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { Link, useLocation } from "wouter";
 
@@ -11,6 +11,7 @@ const lanes = [
   ["/football", "Football", Trophy],
   ["/community", "Community", MessageCircle],
   ["/explore", "Explore", Compass],
+  ["/library", "Library", Library],
 ] as const;
 
 export function Mark() {
@@ -27,7 +28,7 @@ export function HubShell({ children, active }: { children: ReactNode; active?: s
   const [accountOpen, setAccountOpen] = useState(false);
   const station = trpc.media.station.useQuery(undefined, { enabled: Boolean(user) });
   const currentLane = active || "Watch";
-  const laneCodes: Record<string, string> = { Watch: "01", Shorts: "02", Football: "03", Community: "04", Explore: "05", Create: "ST", Station: "CS", Notifications: "NT" };
+  const laneCodes: Record<string, string> = { Watch: "01", Shorts: "02", Football: "03", Community: "04", Explore: "05", Create: "ST", Station: "CS", Notifications: "NT", Library: "06" };
   return <div className="loop-app" data-lane={currentLane}>
     <header className="loop-topbar">
       <Link href="/" className="loop-brand"><Mark /><span>EZROME</span><b>LOOP</b></Link>
@@ -48,7 +49,7 @@ export function HubShell({ children, active }: { children: ReactNode; active?: s
     <main className="loop-main"><div className="loop-lane-strap"><span>LANE / {laneCodes[currentLane] || "00"}</span><strong>{currentLane}</strong><i /><small>EZROME SIGNAL COMMONS</small></div>{children}</main>
     <nav className="loop-mobile-dock" aria-label="Mobile navigation">
       {lanes.slice(0, 4).map(([href, label, Icon]) => <Link href={href} key={label} className={active === label ? "dock-active" : ""}><Icon className="size-4" /><span>{label}</span></Link>)}
-      <Link href="/create"><Plus className="size-4" /><span>Create</span></Link>
+      <Link href="/create"><Plus className="size-4" /><span>Create</span></Link><Link href="/library" className={active === "Library" ? "dock-active" : ""}><Library className="size-4" /><span>Library</span></Link>
     </nav>
   </div>;
 }

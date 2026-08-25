@@ -1,0 +1,12 @@
+{
+  "name": "Ezrome Social Hub",
+  "short_name": "Ezrome",
+  "description": "Culture, creator video, football intelligence, and source-aware signals.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#071319",
+  "theme_color": "#071319",
+  "icons": [
+    { "src": "/manus-storage/ezrome-signal-e-logo_d4e30a52.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

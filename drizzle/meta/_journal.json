@@ -15,6 +15,20 @@
       "when": 1787642257868,
       "tag": "0001_useful_nicolaos",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1787648432185,
+      "tag": "0002_living_spectrum",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1787648508168,
+      "tag": "0003_aromatic_scrambler",
+      "breakpoints": true
     }
   ]
 }

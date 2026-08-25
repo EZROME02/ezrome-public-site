@@ -15,3 +15,15 @@
 - [x] Add a visible authenticated account menu with logout and a clear channel entry point.
 - [x] Save a post-implementation Social & Media Hub checkpoint for review and rollback.
 - [x] Use the canonical server-created channel handle for the authenticated account menu link.
+- [x] Define rights-controlled downloads and offline playback boundaries.
+- [x] Implement an account-aware offline library with explicit download states.
+- [x] Document monetization options and Google Play readiness requirements.
+- [x] Verify offline playback safeguards and save the updated Ezrome version.
+- [x] Add rights-controlled video download records and server-signed offline access.
+- [x] Add IndexedDB-backed offline video library and limited offline playback UI.
+- [x] Add monetization and Google Play readiness roadmap documentation with official sources.
+- [x] Verify offline playback safeguards, tests, and save the updated version.
+- [x] Add rights-controlled video download records and server-signed offline access.
+- [x] Add IndexedDB-backed offline video library and limited offline playback UI.
+- [x] Add monetization and Google Play readiness roadmap documentation with official sources.
+- [x] Verify offline playback safeguards, tests, and save the updated version.

@@ -9,6 +9,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import { ChannelPage, CommunityLane, ExploreLane, FootballHub, NotificationsPage, ShortsLane, UploadStudio, WatchPage } from "./pages/HubPages";
+import { OfflineLibraryPage, OfflineWatchPage } from "./pages/OfflineLibrary";
 import ProjectDetail from "./pages/ProjectDetail";
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -23,6 +24,8 @@ function Router() {
       <Route path="/watch/:id" component={WatchPage} />
       <Route path="/channel/:handle" component={ChannelPage} />
       <Route path="/notifications" component={NotificationsPage} />
+      <Route path="/library" component={OfflineLibraryPage} />
+      <Route path="/offline/:id" component={OfflineWatchPage} />
       <Route path="/projects/:slug" component={ProjectDetail} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

@@ -56,6 +56,7 @@ export const videos = mysqlTable("videos", {
   thumbnailUrl: text("thumbnailUrl"),
   viewCount: int("viewCount").notNull().default(0),
   shareCount: int("shareCount").notNull().default(0),
+  downloadable: int("downloadable").notNull().default(1),
   publishedAt: timestamp("publishedAt").defaultNow().notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
@@ -123,3 +124,21 @@ export type Comment = typeof comments.$inferSelect;
 export type Reaction = typeof reactions.$inferSelect;
 export type Follow = typeof follows.$inferSelect;
 export type Notification = typeof notifications.$inferSelect;
+
+/**
+ * Rights-controlled offline copies. The video bytes remain in managed storage;
+ * this table records the signed download grant and the owner who requested it.
+ */
+export const videoDownloads = mysqlTable("videoDownloads", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  videoId: int("videoId").notNull().references(() => videos.id, { onDelete: "cascade" }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  lastAccessedAt: timestamp("lastAccessedAt").defaultNow().notNull(),
+}, (table) => [
+  uniqueIndex("video_download_user_video_unique").on(table.userId, table.videoId),
+  index("video_download_user_idx").on(table.userId, table.createdAt),
+]);
+
+export type VideoDownload = typeof videoDownloads.$inferSelect;
+export type InsertVideoDownload = typeof videoDownloads.$inferInsert;

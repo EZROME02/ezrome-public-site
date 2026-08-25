@@ -1,6 +1,6 @@
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { Channel, channels, comments, follows, InsertUser, notifications, posts, reactions, users, videos } from "../drizzle/schema";
+import { Channel, channels, comments, follows, InsertUser, notifications, posts, reactions, users, videoDownloads, videos } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -47,13 +47,13 @@ export async function listVideos(input: { format?: "video" | "short"; limit: num
   if (!db) return [];
   const conditions = [eq(videos.status, "published"), eq(videos.visibility, "public")];
   if (input.format) conditions.push(eq(videos.format, input.format));
-  return db.select({ id: videos.id, title: videos.title, description: videos.description, format: videos.format, videoUrl: videos.videoUrl, thumbnailUrl: videos.thumbnailUrl, viewCount: videos.viewCount, shareCount: videos.shareCount, publishedAt: videos.publishedAt, channelHandle: channels.handle, channelName: channels.displayName, channelAccent: channels.accentColor, channelAvatar: channels.avatarUrl }).from(videos).innerJoin(channels, eq(videos.channelId, channels.id)).where(and(...conditions)).orderBy(desc(videos.publishedAt)).limit(input.limit);
+  return db.select({ id: videos.id, title: videos.title, description: videos.description, format: videos.format, videoUrl: videos.videoUrl, thumbnailUrl: videos.thumbnailUrl, viewCount: videos.viewCount, shareCount: videos.shareCount, publishedAt: videos.publishedAt, downloadable: videos.downloadable, channelHandle: channels.handle, channelName: channels.displayName, channelAccent: channels.accentColor, channelAvatar: channels.avatarUrl }).from(videos).innerJoin(channels, eq(videos.channelId, channels.id)).where(and(...conditions)).orderBy(desc(videos.publishedAt)).limit(input.limit);
 }
 
 export async function getVideoById(id: number) {
   const db = await getDb();
   if (!db) return undefined;
-  const rows = await db.select({ id: videos.id, title: videos.title, description: videos.description, format: videos.format, videoUrl: videos.videoUrl, thumbnailUrl: videos.thumbnailUrl, viewCount: videos.viewCount, shareCount: videos.shareCount, publishedAt: videos.publishedAt, channelId: channels.id, channelHandle: channels.handle, channelName: channels.displayName, channelBio: channels.bio, channelAccent: channels.accentColor }).from(videos).innerJoin(channels, eq(videos.channelId, channels.id)).where(eq(videos.id, id)).limit(1);
+  const rows = await db.select({ id: videos.id, title: videos.title, description: videos.description, format: videos.format, videoUrl: videos.videoUrl, thumbnailUrl: videos.thumbnailUrl, viewCount: videos.viewCount, shareCount: videos.shareCount, publishedAt: videos.publishedAt, channelId: channels.id, downloadable: videos.downloadable, channelHandle: channels.handle, channelName: channels.displayName, channelBio: channels.bio, channelAccent: channels.accentColor }).from(videos).innerJoin(channels, eq(videos.channelId, channels.id)).where(eq(videos.id, id)).limit(1);
   return rows[0];
 }
 
@@ -112,3 +112,35 @@ export async function incrementShare(id: number) {
 }
 
 export const unusedSocialTables = { comments, reactions };
+
+export async function getDownloadCandidate(userId: number, videoId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select({
+    id: videos.id,
+    title: videos.title,
+    description: videos.description,
+    format: videos.format,
+    videoKey: videos.videoKey,
+    mimeType: videos.mimeType,
+    downloadable: videos.downloadable,
+    channelName: channels.displayName,
+  }).from(videos).innerJoin(channels, eq(videos.channelId, channels.id)).where(and(eq(videos.id, videoId), eq(videos.status, "published"), eq(videos.visibility, "public"))).limit(1);
+  const candidate = rows[0];
+  if (!candidate || candidate.downloadable !== 1) return undefined;
+  await db.insert(videoDownloads).values({ userId, videoId }).onDuplicateKeyUpdate({ set: { lastAccessedAt: new Date() } });
+  return candidate;
+}
+
+export async function listOfflineDownloadRecords(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({
+    id: videoDownloads.videoId,
+    title: videos.title,
+    format: videos.format,
+    mimeType: videos.mimeType,
+    channelName: channels.displayName,
+    savedAt: videoDownloads.createdAt,
+  }).from(videoDownloads).innerJoin(videos, eq(videoDownloads.videoId, videos.id)).innerJoin(channels, eq(videos.channelId, channels.id)).where(and(eq(videoDownloads.userId, userId), eq(videos.status, "published"))).orderBy(desc(videoDownloads.createdAt)).limit(100);
+}
