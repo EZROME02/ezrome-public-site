@@ -46,7 +46,7 @@ export function HubShell({ children, active }: { children: ReactNode; active?: s
       <Link href="/projects/ezrome-ai" className="rail-link"><UserRound className="size-4" /><span>EZROME AI</span></Link>
       <div className="rail-foot"><span className="live-pulse" /> CREATOR BETA<br />MEDIA / 10 MB MAX</div>
     </aside>
-    <main className="loop-main"><div className="loop-lane-strap"><span>LANE / {laneCodes[currentLane] || "00"}</span><strong>{currentLane}</strong><i /><small>EZROME SIGNAL COMMONS</small></div>{children}</main>
+    <main className="loop-main"><div className="loop-lane-strap"><span>LANE / {laneCodes[currentLane] || "00"}</span><strong>{currentLane}</strong><i /><small>EZROME SIGNAL COMMONS</small></div>{children}<footer className="loop-footer"><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/community-guidelines">Community Guidelines</Link><Link href="/copyright">Report rights issue</Link><Link href="/account-deletion">Delete account</Link></footer></main>
     <nav className="loop-mobile-dock" aria-label="Mobile navigation">
       {lanes.slice(0, 4).map(([href, label, Icon]) => <Link href={href} key={label} className={active === label ? "dock-active" : ""}><Icon className="size-4" /><span>{label}</span></Link>)}
       <Link href="/create"><Plus className="size-4" /><span>Create</span></Link><Link href="/library" className={active === "Library" ? "dock-active" : ""}><Library className="size-4" /><span>Library</span></Link>

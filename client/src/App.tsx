@@ -13,6 +13,7 @@ import { OfflineLibraryPage, OfflineWatchPage } from "./pages/OfflineLibrary";
 import ProjectDetail from "./pages/ProjectDetail";
 import { GovernancePage, ModerationPage, PremiumPage } from "./pages/GovernancePages";
 import { ReleaseChecklistPage } from "./pages/ReleaseChecklistPage";
+import { AccountDeletionPage, CommunityGuidelinesPage, CopyrightPage, PrivacyPolicyPage, TermsPage } from "./pages/PolicyPages";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -32,6 +33,11 @@ function Router() {
       <Route path="/premium" component={PremiumPage} />
       <Route path="/moderation" component={ModerationPage} />
       <Route path="/release-checklist" component={ReleaseChecklistPage} />
+      <Route path="/privacy" component={PrivacyPolicyPage} />
+      <Route path="/terms" component={TermsPage} />
+      <Route path="/community-guidelines" component={CommunityGuidelinesPage} />
+      <Route path="/copyright" component={CopyrightPage} />
+      <Route path="/account-deletion" component={AccountDeletionPage} />
       <Route path="/projects/:slug" component={ProjectDetail} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
