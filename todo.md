@@ -1,0 +1,4 @@
+- [x] Verify the public GitHub project catalog and current project claims.
+- [x] Define an evidence-led detail-page pattern with responsive navigation.
+- [x] Implement detail pages and interactive, non-networked demo panels.
+- [x] Test desktop and mobile routes, then save a new website version.

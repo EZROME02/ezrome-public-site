@@ -78,3 +78,5 @@ The mark is a compact, cut-through **E** assembled from three uneven horizontal 
 - Use Space Grotesk as the primary display voice; reserve italic or contrasting display treatment for rare cultural-signature moments only.
 - Reserve Signal Turquoise `#19E6D2` for verified actions, live/status points, micro-rules, and primary brand recognition rather than broad decorative emphasis.
 - Ensure every major section carries an inspectable record cue: an issue number, transmission metadata, evidence label, status stamp, or project-dispatch marker.
+- The compact cut-through signal-bar E is a non-negotiable identity mark: use only Signal Turquoise, mineral white, and navy; avoid generic app-icon containers or unrelated purple.
+- Distinguish each project record with a dedicated evidence artifact while retaining the shared archive template: a provenance grid, priority map, or research trace.

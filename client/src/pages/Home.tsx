@@ -7,7 +7,6 @@ import {
   ArrowDownRight,
   ArrowUpRight,
   Asterisk,
-  Check,
   Code2,
   ExternalLink,
   Github,
@@ -17,6 +16,7 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "wouter";
 
 const PROJECT_URL = "https://ezrome.co.za/projects";
 const GITHUB_URL = "https://github.com/EZROME02";
@@ -27,21 +27,21 @@ const projectRecords = [
     title: "EZROME AI",
     status: "Built & demonstrated",
     body: "A source-aware intelligence and productivity workspace shaped around clear provenance, useful work, and responsible AI states.",
-    href: PROJECT_URL,
+    slug: "ezrome-ai",
   },
   {
     number: "02",
     title: "AI Productivity Assistant",
     status: "Built & demonstrated",
     body: "Practical experiments in making digital work more structured, visible, and manageable for everyday builders.",
-    href: PROJECT_URL,
+    slug: "ai-productivity-assistant",
   },
   {
     number: "03",
     title: "EZROME Intelligence",
     status: "In development",
     body: "An evolving direction for public-information research, citations, freshness, and careful reasoning in one workspace.",
-    href: PROJECT_URL,
+    slug: "ezrome-intelligence",
   },
 ];
 
@@ -58,11 +58,7 @@ export default function Home() {
     <div className="min-h-screen overflow-x-clip bg-[#071319] text-[#edf7f6] selection:bg-[#19e6d2] selection:text-[#071319]">
       <header className="site-header">
         <a className="brand-lockup" href="#top" aria-label="EZROME home">
-          <img
-            className="brand-mark"
-            src="/manus-storage/ezrome-signal-e-logo_d4e30a52.png"
-            alt="EZROME signal mark"
-          />
+          <span className="css-brand-mark" aria-hidden="true"><i /><i /><i /><b /></span>
           <span>EZROME</span>
         </a>
 
@@ -175,7 +171,7 @@ export default function Home() {
           </div>
           <div className="project-list">
             {projectRecords.map((project) => (
-              <a className="project-row" href={project.href} target="_blank" rel="noreferrer" key={project.number}>
+              <Link className="project-row" href={`/projects/${project.slug}`} key={project.number}>
                 <span className="project-index">{project.number}</span>
                 <div className="project-title-wrap">
                   <h3>{project.title}</h3>
@@ -183,7 +179,7 @@ export default function Home() {
                 </div>
                 <div className="project-status"><span className="status-tick" /> {project.status}</div>
                 <MoveUpRight className="project-arrow size-5" />
-              </a>
+              </Link>
             ))}
           </div>
           <div className="projects-footnote">
@@ -247,7 +243,7 @@ export default function Home() {
       </main>
 
       <footer className="site-footer">
-        <div className="footer-brand"><img src="/manus-storage/ezrome-signal-e-logo_d4e30a52.png" alt="" /> EZROME</div>
+        <div className="footer-brand"><span className="css-brand-mark" aria-hidden="true"><i /><i /><i /><b /></span> EZROME</div>
         <p>Practical AI. Public work. Built with intent.</p>
         <div className="footer-links">
           <a href={GITHUB_URL} target="_blank" rel="noreferrer">GitHub</a>
