@@ -49,6 +49,7 @@
 - [x] Finalize and record the owner-approved V1 release scope and deferred features.
 - [ ] Publish the real privacy policy, Terms, support/contact details, and web account-deletion resource; align Play Console declarations.
 - [ ] Configure Android application ID, signing, Play Console app, billing catalog, prices, regions, and closed testing with real devices and testers.
+- [x] Prepare the owner-ready Android release configuration and staged-rollout handoff without handling signing credentials.
 - [x] Add the EZROME Systems & Build Lab covering operating systems, GUIs, language translators, utility programs, application software, SDLC, and data representation.
 - [x] Expand Foundations into both educational content and interactive demos, keeping the learning lane separate from the social feed.
 - [x] Add at least three stateful Foundations demos: binary/text conversion, SDLC stage board, and translator-flow explorer.
