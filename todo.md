@@ -5,3 +5,13 @@
 - [x] Add clearly labelled walkthrough-video placeholders to each project record.
 - [x] Add responsive approved-screenshot placeholder layouts to each project record.
 - [x] Verify the new media sections and save the updated website version.
+- [x] Define the creator-video platform scope, trust boundaries, and launch architecture.
+- [x] Enable user accounts, database persistence, and managed media storage.
+- [x] Build video discovery, creator profiles, upload, sharing, and account flows.
+- [x] Test the creator platform prototype and save the updated website version.
+- [x] Define Video, Shorts, Football Hub, Community, AI Assistant, Creator, Explore, and Notifications launch boundaries.
+- [x] Build the distinct EZROME Social & Media Hub navigation and public discovery experience.
+- [x] Add beta-ready creator uploads, sharing, channels, and safe content states.
+- [x] Add a visible authenticated account menu with logout and a clear channel entry point.
+- [x] Save a post-implementation Social & Media Hub checkpoint for review and rollback.
+- [x] Use the canonical server-created channel handle for the authenticated account menu link.

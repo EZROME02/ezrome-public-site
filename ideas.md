@@ -81,3 +81,43 @@ The mark is a compact, cut-through **E** assembled from three uneven horizontal 
 - The compact cut-through signal-bar E is a non-negotiable identity mark: use only Signal Turquoise, mineral white, and navy; avoid generic app-icon containers or unrelated purple.
 - Distinguish each project record with a dedicated evidence artifact while retaining the shared archive template: a provenance grid, priority map, or research trace.
 - Give each project its own editorial case-file cadence and repeat its evidence motif through the hero, console, and media sections; do not reuse generic archive headings where project-specific language is possible.
+
+---
+
+## EZROME Social & Media Hub — Design Direction
+
+### Theme Name: Signal Commons
+**Very Brief Intro:** A creator network that feels like a living broadcast desk rather than a clone of a video giant. Public video, short-form rhythm, football discussion, and creator practice share the same signal-ledger DNA.
+
+### Alternative Direction: Creator Arcade
+**Very Brief Intro:** A playful modular world of creator rooms, each with its own color and format logic. It privileges discovery and custom channel identity over broadcast precision.
+
+### Alternative Direction: Field Broadcast
+**Very Brief Intro:** A utility-first live bulletin, emphasizing football, clips, and topical posts through dynamic scorecard-like modules and compact editorial metadata.
+
+### Chosen Approach: Signal Commons
+
+**Design Movement:** A broadcast interface filtered through the existing Signal Ledger identity. It takes the clarity of an editorial control room, combines it with creator-first flows, and avoids copying the layouts, typography, color conventions, icons, or interaction patterns of YouTube and TikTok.
+
+**Core Principles:**
+1. **Every creator has a channel, not a generic profile.** Channels are personal signal stations with a clear public identity.
+2. **Discovery is explainable.** Video, shorts, football opinion, community posts, and creator work are separated through clear “lanes,” not an opaque endless feed.
+3. **Media stays accountable.** Upload states, media placeholders, visibility labels, and community prompts distinguish public work from private drafts and incomplete features.
+4. **Culture is a first-class input.** Football and creator conversation belong beside AI and build notes, without collapsing into a copy of any existing social feed.
+
+**Color Philosophy:** Midnight navy remains the stage. Signal Turquoise denotes active channels, verified publishing actions, and creator status. Deep cobalt is reserved for the football lane, warm orange for live community prompts, and mineral white keeps media metadata readable.
+
+**Layout Paradigm:** A slim desktop transmission rail becomes a mobile bottom dock. The center column is an editorial discovery field; the right column is a context panel for creator prompts, football discussion, or notifications. The layout is not a standard video-grid replica.
+
+**Signature Elements:**
+1. A `SIGNAL LANES` switcher that moves among Watch, Shorts, Football, Community, and Explore.
+2. A creator station badge formed from the cut-through EZROME signal E plus each creator’s channel accent color.
+3. Broadcast cards with a visible lane label, visibility state, and watch/share metadata.
+
+**Interaction Philosophy:** Scrolling discovers content; creation is deliberate. The Create action always leads to a visible studio with media limits and ownership guidance. Shared links lead to a canonical record page, not a copied social interaction shell.
+
+**Typography System:** Space Grotesk remains the headline voice, DM Mono names media states and lanes, and Manrope makes captions and community text readable. No platform-specific visual conventions are borrowed.
+
+**Brand Essence:** **EZROME Social & Media Hub is where creators publish a signal, build a station, and make culture easier to follow.**
+
+**Launch Boundary:** The first release supports real creator channels, direct beta media uploads, video and short feeds, community posts, shares, and basic notifications. AI summaries, full moderation workflows, livestreaming, algorithmic recommendations, video transcoding, and monetization require later production phases.
