@@ -15,6 +15,11 @@ export type ProjectRecord = {
   demoKind: DemoKind;
   demoTitle: string;
   demoNote: string;
+  recordHeading: string;
+  recordContext: string;
+  mediaHeading: string;
+  mediaContext: string;
+  nextHeading: string;
   capabilities: Array<{ title: string; detail: string; state: "Built" | "Demonstrated" | "Planned" }>;
   proof: Array<{ label: string; value: string }>;
 };
@@ -34,6 +39,11 @@ export const projectRecords: ProjectRecord[] = [
     demoKind: "source",
     demoTitle: "Evidence-state console",
     demoNote: "A local interface demonstration of the project’s provenance model. It does not retrieve sources or validate a live claim.",
+    recordHeading: "The provenance contract.",
+    recordContext: "This project record identifies where a claim sits: supported fact, reported information, or an interpretation that needs to remain visibly human-made.",
+    mediaHeading: "Evidence, in frame.",
+    mediaContext: "When approved, this record will show real interface states that make provenance legible without presenting a static capture as live retrieval.",
+    nextHeading: "Inspect another signal.",
     capabilities: [
       { title: "Evidence states", detail: "Separates verified facts, reported information, and AI analysis in the user experience.", state: "Built" },
       { title: "Source-aware responses", detail: "The public product direction calls for source, publication, freshness, and provider status to accompany retrieved claims.", state: "Demonstrated" },
@@ -59,6 +69,11 @@ export const projectRecords: ProjectRecord[] = [
     demoKind: "planner",
     demoTitle: "Priority-map console",
     demoNote: "A local interaction inspired by the project’s planner model. It does not make an AI request, store data, or produce a real schedule.",
+    recordHeading: "The workday, made legible.",
+    recordContext: "This record follows the tools that turn scattered work into structured drafts, priorities, actions, and reviewable next steps.",
+    mediaHeading: "Focus, in motion.",
+    mediaContext: "When approved, this record will carry short walkthroughs of real work modes and interface captures that keep the human review step visible.",
+    nextHeading: "Return to the workbench.",
     capabilities: [
       { title: "Workplace toolset", detail: "The public record includes email drafting, meeting-note summaries, task planning, research briefs, and an AI coworker chat.", state: "Built" },
       { title: "Human review", detail: "Outputs are structured for preview, editing, copying, or download before use.", state: "Built" },
@@ -84,6 +99,11 @@ export const projectRecords: ProjectRecord[] = [
     demoKind: "trace",
     demoTitle: "Research-trace console",
     demoNote: "A local walkthrough of the intended evidence flow. Live retrieval, source adapters, and persistent storage remain development phases.",
+    recordHeading: "A trail before the conclusion.",
+    recordContext: "This record holds the planned research path: a bounded question, inspectable sources, explicit synthesis, and a trace users can revisit.",
+    mediaHeading: "The trail, made visible.",
+    mediaContext: "When approved, this record will show the research flow in actual product captures without implying that unfinished retrieval features are already live.",
+    nextHeading: "Follow the next trace.",
     capabilities: [
       { title: "Research provenance", detail: "The planned experience centers source information, publication context, freshness, and explicit AI-analysis states.", state: "Planned" },
       { title: "Public-information boundary", detail: "The product direction does not treat inferred private intentions or sensitive private data as public facts.", state: "Demonstrated" },

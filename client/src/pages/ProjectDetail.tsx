@@ -117,6 +117,31 @@ function InteractiveDemo({ project }: { project: ProjectRecord }) {
   return <TraceDemo />;
 }
 
+function MediaPlaceholders({ project }: { project: ProjectRecord }) {
+  return (
+    <section className="detail-media-section">
+      <div className="detail-section-label"><span>03</span> APPROVED MEDIA</div>
+      <div className="detail-media-header"><div><h2>{project.mediaHeading}</h2><p>{project.mediaContext}</p></div><span className="media-pending-label">MEDIA / AWAITING APPROVAL</span></div>
+      <div className={`detail-media-grid media-${project.demoKind}`}>
+        <article className="walkthrough-placeholder">
+          <div className={`walkthrough-screen screen-${project.demoKind}`}>
+            <div className="screen-topline"><span>WALKTHROUGH / 00:00</span><span>PLACEHOLDER</span></div>
+            <div className="screen-center"><span className="play-void">▶</span><strong>{project.title}</strong><small>VIDEO SLOT / APPROVED RECORDING REQUIRED</small></div>
+            <div className="screen-track"><span /></div>
+          </div>
+          <div className="media-card-caption"><span>VIDEO RECORD</span><p>Use this panel for a short, approved product walkthrough that shows a real interface, live build, or verified process.</p></div>
+        </article>
+        <article className="screenshots-placeholder">
+          <div className="screenshot-grid">
+            {['01', '02', '03'].map((number, index) => <div className={`shot-slot shot-${index + 1}`} key={number}><span>SCREEN / {number}</span><div className="shot-lines"><i /><i /><i /></div><small>APPROVED CAPTURE PENDING</small></div>)}
+          </div>
+          <div className="media-card-caption"><span>SCREENSHOT INDEX</span><p>Use these frames for current, permission-cleared product views. Remove any private information before publication.</p></div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
 function MissingProject() {
   return (
     <div className="detail-page"><Header /><main className="missing-project"><div className="eyebrow"><span className="status-dot" /> RECORD NOT FOUND</div><h1>This project record is not available.</h1><Link href="/#projects" className="text-action">Return to the public records <ArrowLeft className="size-4" /></Link></main></div>
@@ -129,7 +154,7 @@ export default function ProjectDetail() {
   if (!project) return <MissingProject />;
 
   return (
-    <div className="detail-page">
+    <div className={`detail-page project-${project.demoKind}`}>
       <Header />
       <main>
         <section className="detail-hero">
@@ -150,7 +175,7 @@ export default function ProjectDetail() {
 
         <section className="detail-section detail-capabilities">
           <div className="detail-section-label"><span>01</span> CURRENT RECORD</div>
-          <div className="detail-section-header"><h2>What this <em>project holds.</em></h2><p>Every item below is marked by its current public status. The record distinguishes working software from demonstrated direction and future scope.</p></div>
+          <div className="detail-section-header"><h2>{project.recordHeading}</h2><p>{project.recordContext}</p></div>
           <div className="capability-list">
             {project.capabilities.map((capability, index) => <article key={capability.title} className="capability-row"><span>0{index + 1}</span><h3>{capability.title}</h3><p>{capability.detail}</p><small className={`capability-state state-${capability.state.toLowerCase()}`}>{capability.state}</small></article>)}
           </div>
@@ -162,8 +187,10 @@ export default function ProjectDetail() {
           <InteractiveDemo project={project} />
         </section>
 
+        <MediaPlaceholders project={project} />
+
         <section className="detail-next-section">
-          <div><div className="detail-section-label"><span>03</span> NEXT INSPECTION</div><h2>See the rest of the <em>workbench.</em></h2></div>
+          <div><div className="detail-section-label"><span>04</span> NEXT INSPECTION</div><h2>{project.nextHeading}</h2></div>
           <div className="detail-next-actions"><Link className="next-record-link" href="/#projects">Return to all project records <ChevronRight className="size-4" /></Link><Button asChild className="h-11 rounded-none bg-[#19e6d2] px-4 text-xs font-bold uppercase tracking-[.13em] text-[#071319] hover:bg-[#c8fff8]"><a href="https://ezrome.co.za/projects" target="_blank" rel="noreferrer">Open EZROME projects <ExternalLink className="ml-2 size-4" /></a></Button></div>
         </section>
       </main>

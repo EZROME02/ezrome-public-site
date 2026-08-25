@@ -80,3 +80,4 @@ The mark is a compact, cut-through **E** assembled from three uneven horizontal 
 - Ensure every major section carries an inspectable record cue: an issue number, transmission metadata, evidence label, status stamp, or project-dispatch marker.
 - The compact cut-through signal-bar E is a non-negotiable identity mark: use only Signal Turquoise, mineral white, and navy; avoid generic app-icon containers or unrelated purple.
 - Distinguish each project record with a dedicated evidence artifact while retaining the shared archive template: a provenance grid, priority map, or research trace.
+- Give each project its own editorial case-file cadence and repeat its evidence motif through the hero, console, and media sections; do not reuse generic archive headings where project-specific language is possible.
