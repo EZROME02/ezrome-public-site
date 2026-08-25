@@ -2,6 +2,17 @@
 
 _Last reviewed: 25 August 2026. This is an implementation checklist, not legal, tax, or financial advice. Google’s current policies and your local requirements should be checked again before submission or monetization._
 
+## What EZROME is charging for
+
+EZROME should separate monetization into two clear categories before launch. **Category A — Digital EZROME features** covers products consumed inside the Android app or web platform: EZROME Premium, AI Assistant credits and capabilities, premium Brainwork content, Rated Opinionz football intelligence, premium hip-hop and entertainment content, premium reports, recurring digital subscriptions, and functionality unlocked inside the app. For the Android Play Store version, these should be modeled as Google Play Billing products and entitlements; no live charge should be presented until the billing integration is configured and tested.
+
+**Category B — Non-digital or off-platform offerings** covers physical merchandise, tickets to live events, consulting, sponsorship services, production work, or other services that are not digital functionality consumed inside the app. These should remain separate from the Android digital entitlement catalog and require their own commercial, tax, privacy, refund, and platform-policy review. The current EZROME build does not activate either checkout category.
+
+| Product category | EZROME examples | Android treatment | Current status |
+| --- | --- | --- | --- |
+| Digital in-app features | Premium, AI Assistant, Brainwork, football intelligence, premium culture content, reports, app unlocks | Google Play Billing product/subscription and server-verified entitlement | Scaffolded; not charging |
+| Non-digital or off-platform | Merchandise, events, consulting, sponsorships, production services | Separate review; do not mix with in-app digital entitlement logic | Not implemented |
+
 ## Monetization sequence
 
 1. **Launch a useful free network first.** Build retention around Watch, Shorts, culture reporting, creator stations, community participation, and rights-controlled offline playback. Measure returning viewers, completed plays, creator activation, and approved uploads before placing aggressive monetization in the experience.

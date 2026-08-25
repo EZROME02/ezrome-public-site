@@ -27,11 +27,21 @@
 - [x] Add IndexedDB-backed offline video library and limited offline playback UI.
 - [x] Add monetization and Google Play readiness roadmap documentation with official sources.
 - [x] Verify offline playback safeguards, tests, and save the updated version.
-- [ ] Define moderation roles, report states, and appeal-safe account deletion flow.
-- [ ] Add creator download-permission toggles and storage safety controls.
-- [ ] Add premium tiers and billing-safe entitlement flows without charging before integration is configured.
-- [ ] Create the reusable Ezrome workflow skill with Skill Creator.
-- [ ] Verify governance, billing, storage, and deletion flows; save the updated version.
+- [x] Define moderation roles, report states, and appeal-safe account deletion flow.
+- [x] Add creator download-permission toggles and storage safety controls.
+- [x] Add premium tiers and billing-safe entitlement flows without charging before integration is configured.
+- [x] Create the reusable Ezrome workflow skill with Skill Creator.
+- [x] Verify governance, billing, storage, and deletion flows; save the updated version.
 - [x] Increase navy, cyan, and electric-violet contrast and lively motion across the hub.
 - [x] Strengthen hip-hop surface cues while keeping navigation text bold and readable.
 - [x] Verify reduced-motion and responsive behavior, then save the visual-refresh version.
+- [x] Separate EZROME digital in-app products from any non-digital or off-platform offerings and map digital products to Google Play-safe entitlement tiers.
+- [x] Add visible report actions and fuller deletion-state handling with a cancellation or appeal-safe path.
+- [x] Add creator media management for changing download permissions after publishing and document storage safety controls.
+- [x] Build tier selection, pending entitlement state, current-plan display, and non-charging premium management UX.
+- [x] Re-run governance, storage, deletion, and premium verification and save a new checkpoint.
+- [x] Integrate the storage-safety encoder into real creator-media storage writes and re-verify.
+- [x] Persist pending premium tier selection and add clear current-plan change/cancel management states without charging.
+- [x] Re-run final verification and save a post-governance checkpoint.
+- [x] Restrict premium tier selection to supported digital tiers and reflect persisted pending state after reload.
+- [x] Save the final post-governance checkpoint after the selector correction.

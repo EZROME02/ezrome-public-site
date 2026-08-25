@@ -1,0 +1,1 @@
+ALTER TABLE `subscriptionEntitlements` ADD `pendingTier` enum('signal_plus','founder_circle');

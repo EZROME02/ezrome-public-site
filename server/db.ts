@@ -1,6 +1,6 @@
 import { and, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { Channel, channels, comments, follows, InsertUser, notifications, posts, reactions, users, videoDownloads, videos } from "../drizzle/schema";
+import { AccountDeletionRequest, Channel, accountDeletionRequests, channels, contentReports, comments, follows, InsertUser, notifications, posts, reactions, subscriptionEntitlements, users, videoDownloads, videos } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -57,7 +57,7 @@ export async function getVideoById(id: number) {
   return rows[0];
 }
 
-export async function addVideo(input: { userId: number; channelId: number; title: string; description?: string; format: "video" | "short"; videoKey: string; videoUrl: string; mimeType: string; thumbnailKey?: string; thumbnailUrl?: string; visibility: "public" | "unlisted" }) {
+export async function addVideo(input: { userId: number; channelId: number; title: string; description?: string; format: "video" | "short"; videoKey: string; videoUrl: string; mimeType: string; thumbnailKey?: string; thumbnailUrl?: string; visibility: "public" | "unlisted"; downloadable?: number }) {
   const db = await getDb();
   if (!db) throw new Error("Database unavailable");
   const result = await db.insert(videos).values(input);
@@ -112,6 +112,80 @@ export async function incrementShare(id: number) {
 }
 
 export const unusedSocialTables = { comments, reactions };
+
+export async function setVideoDownloadable(userId: number, videoId: number, downloadable: boolean) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(videos).set({ downloadable: downloadable ? 1 : 0 }).where(and(eq(videos.id, videoId), eq(videos.userId, userId)));
+}
+
+export async function createContentReport(input: { reporterUserId: number; videoId?: number; postId?: number; reason: "copyright" | "harassment" | "sexual" | "drugs" | "violence" | "privacy" | "spam" | "other"; details?: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  const result = await db.insert(contentReports).values(input);
+  return Number(result[0].insertId);
+}
+
+export async function listContentReports(status?: "open" | "under_review" | "resolved" | "dismissed") {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(contentReports).where(status ? eq(contentReports.status, status) : undefined).orderBy(desc(contentReports.createdAt)).limit(100);
+}
+
+export async function updateContentReport(id: number, status: "open" | "under_review" | "resolved" | "dismissed", moderatorNote?: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(contentReports).set({ status, moderatorNote: moderatorNote || null }).where(eq(contentReports.id, id));
+}
+
+export async function requestAccountDeletion(userId: number, reason?: string): Promise<AccountDeletionRequest | undefined> {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(accountDeletionRequests).values({ userId, reason: reason || null }).onDuplicateKeyUpdate({ set: { status: "requested", reason: reason || null, requestedAt: new Date(), completedAt: null } });
+  const rows = await db.select().from(accountDeletionRequests).where(eq(accountDeletionRequests.userId, userId)).limit(1);
+  return rows[0];
+}
+
+export async function cancelAccountDeletion(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(accountDeletionRequests).set({ status: "cancelled" }).where(eq(accountDeletionRequests.userId, userId));
+}
+
+export async function listCreatorVideos(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select({ id: videos.id, title: videos.title, format: videos.format, downloadable: videos.downloadable, visibility: videos.visibility, status: videos.status, createdAt: videos.createdAt }).from(videos).where(eq(videos.userId, userId)).orderBy(desc(videos.createdAt)).limit(100);
+}
+
+export async function getAccountDeletionRequest(userId: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select().from(accountDeletionRequests).where(eq(accountDeletionRequests.userId, userId)).limit(1);
+  return rows[0];
+}
+
+export async function setPendingTier(userId: number, pendingTier: "signal_plus" | "founder_circle") {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.insert(subscriptionEntitlements).values({ userId, pendingTier }).onDuplicateKeyUpdate({ set: { pendingTier } });
+  return getEntitlement(userId);
+}
+
+export async function clearPendingTier(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Database unavailable");
+  await db.update(subscriptionEntitlements).set({ pendingTier: null }).where(eq(subscriptionEntitlements.userId, userId));
+  return getEntitlement(userId);
+}
+
+export async function getEntitlement(userId: number) {
+  const db = await getDb();
+  if (!db) return { tier: "free" as const, pendingTier: null, status: "active" as const, provider: null };
+  await db.insert(subscriptionEntitlements).values({ userId }).onDuplicateKeyUpdate({ set: { userId } });
+  const rows = await db.select().from(subscriptionEntitlements).where(eq(subscriptionEntitlements.userId, userId)).limit(1);
+  return rows[0];
+}
 
 export async function getDownloadCandidate(userId: number, videoId: number) {
   const db = await getDb();

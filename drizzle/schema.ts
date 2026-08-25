@@ -142,3 +142,43 @@ export const videoDownloads = mysqlTable("videoDownloads", {
 
 export type VideoDownload = typeof videoDownloads.$inferSelect;
 export type InsertVideoDownload = typeof videoDownloads.$inferInsert;
+
+export const contentReports = mysqlTable("contentReports", {
+  id: int("id").autoincrement().primaryKey(),
+  reporterUserId: int("reporterUserId").notNull().references(() => users.id, { onDelete: "cascade" }),
+  videoId: int("videoId").references(() => videos.id, { onDelete: "cascade" }),
+  postId: int("postId").references(() => posts.id, { onDelete: "cascade" }),
+  reason: mysqlEnum("reason", ["copyright", "harassment", "sexual", "drugs", "violence", "privacy", "spam", "other"]).notNull(),
+  details: text("details"),
+  status: mysqlEnum("status", ["open", "under_review", "resolved", "dismissed"]).notNull().default("open"),
+  moderatorNote: text("moderatorNote"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [index("content_reports_status_idx").on(table.status, table.createdAt), index("content_reports_reporter_idx").on(table.reporterUserId, table.createdAt)]);
+
+export const accountDeletionRequests = mysqlTable("accountDeletionRequests", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }).unique(),
+  status: mysqlEnum("status", ["requested", "processing", "completed", "cancelled"]).notNull().default("requested"),
+  reason: varchar("reason", { length: 500 }),
+  requestedAt: timestamp("requestedAt").defaultNow().notNull(),
+  completedAt: timestamp("completedAt"),
+});
+
+export const subscriptionEntitlements = mysqlTable("subscriptionEntitlements", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull().references(() => users.id, { onDelete: "cascade" }).unique(),
+  tier: mysqlEnum("tier", ["free", "signal_plus", "founder_circle"]).notNull().default("free"),
+  pendingTier: mysqlEnum("pendingTier", ["signal_plus", "founder_circle"]),
+  status: mysqlEnum("status", ["active", "trialing", "past_due", "cancelled"]).notNull().default("active"),
+  provider: varchar("provider", { length: 32 }),
+  providerCustomerId: varchar("providerCustomerId", { length: 128 }),
+  providerSubscriptionId: varchar("providerSubscriptionId", { length: 128 }),
+  currentPeriodEnd: timestamp("currentPeriodEnd"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type ContentReport = typeof contentReports.$inferSelect;
+export type AccountDeletionRequest = typeof accountDeletionRequests.$inferSelect;
+export type SubscriptionEntitlement = typeof subscriptionEntitlements.$inferSelect;

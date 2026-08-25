@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import { ChannelPage, CommunityLane, ExploreLane, FootballHub, NotificationsPage, ShortsLane, UploadStudio, WatchPage } from "./pages/HubPages";
 import { OfflineLibraryPage, OfflineWatchPage } from "./pages/OfflineLibrary";
 import ProjectDetail from "./pages/ProjectDetail";
+import { GovernancePage, ModerationPage, PremiumPage } from "./pages/GovernancePages";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -26,6 +27,9 @@ function Router() {
       <Route path="/notifications" component={NotificationsPage} />
       <Route path="/library" component={OfflineLibraryPage} />
       <Route path="/offline/:id" component={OfflineWatchPage} />
+      <Route path="/settings" component={GovernancePage} />
+      <Route path="/premium" component={PremiumPage} />
+      <Route path="/moderation" component={ModerationPage} />
       <Route path="/projects/:slug" component={ProjectDetail} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
