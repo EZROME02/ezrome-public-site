@@ -27,3 +27,11 @@
 - [x] Add IndexedDB-backed offline video library and limited offline playback UI.
 - [x] Add monetization and Google Play readiness roadmap documentation with official sources.
 - [x] Verify offline playback safeguards, tests, and save the updated version.
+- [ ] Define moderation roles, report states, and appeal-safe account deletion flow.
+- [ ] Add creator download-permission toggles and storage safety controls.
+- [ ] Add premium tiers and billing-safe entitlement flows without charging before integration is configured.
+- [ ] Create the reusable Ezrome workflow skill with Skill Creator.
+- [ ] Verify governance, billing, storage, and deletion flows; save the updated version.
+- [x] Increase navy, cyan, and electric-violet contrast and lively motion across the hub.
+- [x] Strengthen hip-hop surface cues while keeping navigation text bold and readable.
+- [x] Verify reduced-motion and responsive behavior, then save the visual-refresh version.
