@@ -45,3 +45,9 @@
 - [x] Re-run final verification and save a post-governance checkpoint.
 - [x] Restrict premium tier selection to supported digital tiers and reflect persisted pending state after reload.
 - [x] Save the final post-governance checkpoint after the selector correction.
+- [x] Complete EZROME final-release readiness decisions, including product scope, policies, billing, Android packaging, testing, and launch ownership.
+- [x] Finalize and record the owner-approved V1 release scope and deferred features.
+- [ ] Publish the real privacy policy, Terms, support/contact details, and web account-deletion resource; align Play Console declarations.
+- [ ] Configure Android application ID, signing, Play Console app, billing catalog, prices, regions, and closed testing with real devices and testers.
+- [x] Use the finalization roadmap as the active checklist and separate automatable implementation from owner-controlled launch inputs.
+- [x] Implement the attached free-first V1 release decision sheet and define safe Kimi K2.7 automation boundaries.
