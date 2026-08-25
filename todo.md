@@ -49,6 +49,10 @@
 - [x] Finalize and record the owner-approved V1 release scope and deferred features.
 - [ ] Publish the real privacy policy, Terms, support/contact details, and web account-deletion resource; align Play Console declarations.
 - [ ] Configure Android application ID, signing, Play Console app, billing catalog, prices, regions, and closed testing with real devices and testers.
+- [x] Add the EZROME Systems & Build Lab covering operating systems, GUIs, language translators, utility programs, application software, SDLC, and data representation.
+- [x] Expand Foundations into both educational content and interactive demos, keeping the learning lane separate from the social feed.
+- [x] Add at least three stateful Foundations demos: binary/text conversion, SDLC stage board, and translator-flow explorer.
+- [x] Connect and verify the interactive demos on desktop and mobile before the next checkpoint.
 - [x] Use the finalization roadmap as the active checklist and separate automatable implementation from owner-controlled launch inputs.
 - [x] Implement the attached free-first V1 release decision sheet and define safe Kimi K2.7 automation boundaries.
 - [x] Create the complete EZROME working policy package and an owner-detail inventory for final review and completion.

@@ -13,6 +13,7 @@ import { OfflineLibraryPage, OfflineWatchPage } from "./pages/OfflineLibrary";
 import ProjectDetail from "./pages/ProjectDetail";
 import { GovernancePage, ModerationPage, PremiumPage } from "./pages/GovernancePages";
 import { ReleaseChecklistPage } from "./pages/ReleaseChecklistPage";
+import { SystemsBuildLabPage } from "./pages/SystemsBuildLabPage";
 import { AccountDeletionPage, CommunityGuidelinesPage, CopyrightPage, PrivacyPolicyPage, SupportPage, TermsPage } from "./pages/PolicyPages";
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -33,6 +34,7 @@ function Router() {
       <Route path="/premium" component={PremiumPage} />
       <Route path="/moderation" component={ModerationPage} />
       <Route path="/release-checklist" component={ReleaseChecklistPage} />
+      <Route path="/build-lab" component={SystemsBuildLabPage} />
       <Route path="/privacy" component={PrivacyPolicyPage} />
       <Route path="/terms" component={TermsPage} />
       <Route path="/community-guidelines" component={CommunityGuidelinesPage} />

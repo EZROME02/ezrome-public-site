@@ -1,7 +1,7 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { ArrowRight, Bell, Clapperboard, Compass, Film, MessageCircle, Plus, Radio, Search, Trophy, UserRound, Library } from "lucide-react";
+import { ArrowRight, Bell, Clapperboard, Compass, Cpu, Film, MessageCircle, Plus, Radio, Search, Trophy, UserRound, Library } from "lucide-react";
 import { type ReactNode, useState } from "react";
 import { Link, useLocation } from "wouter";
 
@@ -28,7 +28,7 @@ export function HubShell({ children, active }: { children: ReactNode; active?: s
   const [accountOpen, setAccountOpen] = useState(false);
   const station = trpc.media.station.useQuery(undefined, { enabled: Boolean(user) });
   const currentLane = active || "Watch";
-  const laneCodes: Record<string, string> = { Watch: "01", Shorts: "02", Football: "03", Community: "04", Explore: "05", Create: "ST", Station: "CS", Notifications: "NT", Library: "06" };
+  const laneCodes: Record<string, string> = { Watch: "01", Shorts: "02", Football: "03", Community: "04", Explore: "05", Create: "ST", Station: "CS", Notifications: "NT", Library: "06", "Build Lab": "07" };
   return <div className="loop-app" data-lane={currentLane}>
     <header className="loop-topbar">
       <Link href="/" className="loop-brand"><Mark /><span>EZROME</span><b>LOOP</b></Link>
@@ -43,6 +43,7 @@ export function HubShell({ children, active }: { children: ReactNode; active?: s
       <div className="rail-kicker"><Radio className="size-3" /> SIGNAL LANES</div>
       {lanes.map(([href, label, Icon]) => <Link href={href} key={label} className={`rail-link ${active === label || (href === "/" && location === "/") ? "rail-active" : ""}`}><Icon className="size-4" /><span>{label}</span></Link>)}
       <div className="rail-divider" />
+      <Link href="/build-lab" className={`rail-link ${active === "Build Lab" ? "rail-active" : ""}`}><Cpu className="size-4" /><span>Build Lab</span></Link>
       <Link href="/projects/ezrome-ai" className="rail-link"><UserRound className="size-4" /><span>EZROME AI</span></Link>
       <div className="rail-foot"><span className="live-pulse" /> CREATOR BETA<br />MEDIA / 10 MB MAX</div>
     </aside>
