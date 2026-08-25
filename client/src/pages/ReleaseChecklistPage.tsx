@@ -12,7 +12,7 @@ const implementationItems = [
 
 const ownerItems = [
   ["Publish final policies", "Replace drafts with attorney-reviewed Privacy Policy, Terms, Community Guidelines, Copyright/Reporting Policy, and the public account-deletion resource."],
-  ["Confirm support identity", "Choose the support and copyright-reporting inbox shown to users and reviewers."],
+  ["Activate Cloudflare mail routing", "The approved addresses are support@ezrome.co.za and copyright@ezrome.co.za. Create and verify them in Cloudflare Email Routing, then test delivery to a monitored inbox."],
   ["Own Android release", "Create or confirm com.ezrome.app in your Google Play Console account and keep production signing under your control."],
   ["Configure testing", "Recruit closed-test users and test on real Android devices across sign-in, uploads, offline playback, deletion, reports, and moderation."],
   ["Activate monetization later", "Only after free V1 is stable: define product IDs, prices, regions, trials, server verification, renewals, refunds, and revocation."],
