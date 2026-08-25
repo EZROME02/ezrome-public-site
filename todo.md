@@ -54,3 +54,4 @@
 - [x] Create the complete EZROME working policy package and an owner-detail inventory for final review and completion.
 - [x] Replace policy contact placeholders with approved EZROME addresses and label the documents as approved working drafts pending legal review.
 - [x] Document Cloudflare Email Routing setup and the safe, approval-based support and copyright triage workflow.
+- [x] Prepare the Play Console data-safety and closed-testing worksheet from the implemented V1 behavior.
