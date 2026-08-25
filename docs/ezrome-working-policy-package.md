@@ -1,6 +1,6 @@
 # EZROME Working Policy & Support Package
 
-> **Working draft — professional review required.** This package is tailored to the current EZROME V1 release candidate. It is not legal advice and must be reviewed, completed, and approved by the publisher and a qualified professional before it is represented as final or relied upon for launch.
+> **Approved working draft — professional review required.** The EZROME owner has approved this package for the next implementation stage. It remains a working policy package, not legal advice, and must receive qualified professional review before it is represented as final or relied upon for launch.
 
 ## 1. Confirmed EZROME information
 
@@ -23,9 +23,9 @@ Complete every field marked **[OWNER TO COMPLETE]** before public launch. Do not
 | --- | --- | --- |
 | Legal publisher name | `Sixolile Ezrome Mtyhali / EZROME` or registered entity name | All policies and Play listing |
 | Physical or registered business address | **[OWNER TO COMPLETE]** | Terms, privacy, complaints |
-| Support email | **[OWNER TO COMPLETE: support@your-domain]** | Privacy, Terms, deletion, store listing |
-| Copyright/reporting email | **[OWNER TO COMPLETE: copyright@your-domain]** | Copyright page and reporting process |
-| Privacy contact | **[OWNER TO COMPLETE]** | Privacy policy |
+| Support email | **support@ezrome.co.za** — mailbox setup still required | Privacy, Terms, deletion, store listing |
+| Copyright/reporting email | **copyright@ezrome.co.za** — mailbox setup still required | Copyright page and reporting process |
+| Privacy contact | **support@ezrome.co.za** — mailbox setup still required | Privacy policy |
 | Effective date | **[OWNER TO COMPLETE: YYYY-MM-DD]** | Every policy |
 | Data-retention timetable | **[OWNER TO COMPLETE]** | Privacy and deletion resource |
 | Age minimum / target audience | **[OWNER TO COMPLETE after professional review]** | Terms, Play Console, content rating |
@@ -58,7 +58,7 @@ EZROME provides an in-app deletion request flow and a public web deletion resour
 
 ### Rights and contact
 
-Users may contact **[OWNER TO COMPLETE: privacy/support email]** to ask about their information or make a privacy request. The final policy must explain the applicable rights, verification process, and response timeframe after professional review.
+Users may contact **support@ezrome.co.za** to ask about their information or make a privacy request. The mailbox must be configured and monitored before launch. The final policy must explain the applicable rights, verification process, and response timeframe after professional review.
 
 ## 4. Terms of Service — working draft
 
@@ -84,7 +84,7 @@ Users may report material for copyright, harassment, sexual safety, drug-related
 
 ## 6. Copyright and reporting policy — working draft
 
-Send rights concerns to **[OWNER TO COMPLETE: copyright email]**. A report should include the reporter’s name and contact information, identification of the protected work, the EZROME URL or content identifier, a clear explanation of the concern, supporting material where appropriate, and a statement that the report is accurate to the best of the reporter’s knowledge.
+Send rights concerns to **copyright@ezrome.co.za**. The mailbox must be configured and monitored before launch. A report should include the reporter’s name and contact information, identification of the protected work, the EZROME URL or content identifier, a clear explanation of the concern, supporting material where appropriate, and a statement that the report is accurate to the best of the reporter’s knowledge.
 
 EZROME may ask for additional information, temporarily restrict content while a report is reviewed, notify affected parties where appropriate, and provide a correction or appeal path. This process must be finalized for the governing jurisdiction and should not promise outcomes that the publisher cannot deliver.
 
@@ -92,11 +92,11 @@ Do not include account passwords, signing keys, payment credentials, or unrelate
 
 ## 7. Support and account-deletion resource — working draft
 
-General support contact: **[OWNER TO COMPLETE: support email]**
+General support contact: **support@ezrome.co.za** — mailbox setup still required.
 
-Copyright and reporting contact: **[OWNER TO COMPLETE: copyright email]**
+Copyright and reporting contact: **copyright@ezrome.co.za** — mailbox setup still required.
 
-Signed-in users can request deletion from EZROME Trust & Safety settings. The request is reviewable and can be cancelled while pending. Users outside the app can request deletion through the public account-deletion resource by contacting **[OWNER TO COMPLETE: support email or public form URL]** with their EZROME account identifier. Users must not send passwords.
+Signed-in users can request deletion from EZROME Trust & Safety settings. The request is reviewable and can be cancelled while pending. Users outside the app can request deletion through the public account-deletion resource by contacting **support@ezrome.co.za** with their EZROME account identifier. Users must not send passwords.
 
 Before launch, publish the deletion processing time, verification method, deletion scope, retained-record categories, and escalation contact. Google Play requires an in-app deletion path and a web resource when an app enables account creation. [1]
 
