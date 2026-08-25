@@ -53,6 +53,7 @@
 - [x] Expand Foundations into both educational content and interactive demos, keeping the learning lane separate from the social feed.
 - [x] Add at least three stateful Foundations demos: binary/text conversion, SDLC stage board, and translator-flow explorer.
 - [x] Connect and verify the interactive demos on desktop and mobile before the next checkpoint.
+- [x] Expand the SDLC learning path with information systems, preliminary investigation, systems analysis, systems design, systems development, and systems implementation.
 - [x] Use the finalization roadmap as the active checklist and separate automatable implementation from owner-controlled launch inputs.
 - [x] Implement the attached free-first V1 release decision sheet and define safe Kimi K2.7 automation boundaries.
 - [x] Create the complete EZROME working policy package and an owner-detail inventory for final review and completion.
