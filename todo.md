@@ -53,3 +53,4 @@
 - [x] Implement the attached free-first V1 release decision sheet and define safe Kimi K2.7 automation boundaries.
 - [x] Create the complete EZROME working policy package and an owner-detail inventory for final review and completion.
 - [x] Replace policy contact placeholders with approved EZROME addresses and label the documents as approved working drafts pending legal review.
+- [x] Document Cloudflare Email Routing setup and the safe, approval-based support and copyright triage workflow.
