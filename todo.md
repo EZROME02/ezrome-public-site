@@ -51,3 +51,4 @@
 - [ ] Configure Android application ID, signing, Play Console app, billing catalog, prices, regions, and closed testing with real devices and testers.
 - [x] Use the finalization roadmap as the active checklist and separate automatable implementation from owner-controlled launch inputs.
 - [x] Implement the attached free-first V1 release decision sheet and define safe Kimi K2.7 automation boundaries.
+- [x] Create the complete EZROME working policy package and an owner-detail inventory for final review and completion.
