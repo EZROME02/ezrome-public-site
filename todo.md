@@ -84,4 +84,4 @@
 - [x] Preserve rights-safe source labeling and creator upload controls while adding viewing-first behavior.
 - [x] Verify the viewing-first experience on desktop and mobile, then save a new checkpoint and sync GitHub.
 - [x] Add an explicit watch-later action to Explore cards and connect it to the existing offline/library flow.
-- [ ] Save a post-viewing-first checkpoint and push/verify the updated commit in the private GitHub repository.
+- [x] Save a post-viewing-first checkpoint and push/verify the updated commit in the private GitHub repository.
