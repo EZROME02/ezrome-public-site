@@ -1,0 +1,67 @@
+name: Deploy EZROME API to Azure Container Apps
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "server/**"
+      - "shared/**"
+      - "drizzle/**"
+      - "storage/**"
+      - "deploy/azure/api/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ezrome-api-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: ${{ secrets.AZURE_CLIENT_ID != '' && secrets.AZURE_TENANT_ID != '' && secrets.AZURE_SUBSCRIPTION_ID != '' && secrets.AZURE_RESOURCE_GROUP != '' && secrets.AZURE_CONTAINER_APP_NAME != '' && secrets.AZURE_CONTAINER_REGISTRY != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      AZURE_CONTAINER_APP_NAME: ${{ secrets.AZURE_CONTAINER_APP_NAME }}
+      AZURE_CONTAINER_REGISTRY: ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+      IMAGE_NAME: ezrome-api
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Sign in to Azure with workload identity
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Log in to Azure Container Registry
+        run: az acr login --name "$AZURE_CONTAINER_REGISTRY"
+
+      - name: Build and push API image
+        run: |
+          IMAGE_URI="$AZURE_CONTAINER_REGISTRY.azurecr.io/$IMAGE_NAME:${GITHUB_SHA}"
+          docker build --file deploy/azure/api/Dockerfile --tag "$IMAGE_URI" .
+          docker push "$IMAGE_URI"
+          echo "IMAGE_URI=$IMAGE_URI" >> "$GITHUB_ENV"
+
+      - name: Update Azure Container App
+        run: |
+          az containerapp update \
+            --name "$AZURE_CONTAINER_APP_NAME" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --image "$IMAGE_URI"
+
+  not-configured:
+    if: ${{ secrets.AZURE_CLIENT_ID == '' || secrets.AZURE_TENANT_ID == '' || secrets.AZURE_SUBSCRIPTION_ID == '' || secrets.AZURE_RESOURCE_GROUP == '' || secrets.AZURE_CONTAINER_APP_NAME == '' || secrets.AZURE_CONTAINER_REGISTRY == '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Explain skipped deployment
+        run: echo "Azure API deployment is scaffolded but skipped until the required GitHub Actions secrets are configured."

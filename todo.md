@@ -72,3 +72,9 @@
 - [x] Replace policy contact placeholders with approved EZROME addresses and label the documents as approved working drafts pending legal review.
 - [x] Document Cloudflare Email Routing setup and the safe, approval-based support and copyright triage workflow.
 - [x] Prepare the Play Console data-safety and closed-testing worksheet from the implemented V1 behavior.
+- [x] Add a deployment-safe Azure–Cloudflare architecture blueprint and owner handoff.
+- [x] Add GitHub Actions scaffolding for Azure frontend/API deployment without secrets.
+- [x] Verify the cloud deployment documentation and configuration scaffolding with tests, type checks, and a production build.
+- [x] Save a checkpoint after the Azure–Cloudflare implementation scaffolding.
+- [x] Add backend deployment scaffolding for the chosen Azure API target without committing secrets, with required GitHub settings documented.
+- [x] Save a new checkpoint after the Azure–Cloudflare scaffolding and backend deployment additions are verified.
