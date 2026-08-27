@@ -91,4 +91,4 @@
 - [x] Review Shorts vertical scrolling, playback controls, actions, offline states, and responsive accessibility before Cloudflare setup.
 - [x] Fix and verify any Shorts interaction issues found during the release review.
 - [x] Save the reviewed Shorts interface checkpoint after automated and visual validation.
-- [ ] Save a post-Shorts-review checkpoint and push/verify the reviewed commit in the private GitHub repository.
+- [x] Save a post-Shorts-review checkpoint and push/verify the reviewed commit in the private GitHub repository.
