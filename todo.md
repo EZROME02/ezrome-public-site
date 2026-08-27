@@ -56,6 +56,12 @@
 - [x] Connect and verify the interactive demos on desktop and mobile before the next checkpoint.
 - [x] Expand the SDLC learning path with information systems, preliminary investigation, systems analysis, systems design, systems development, and systems implementation.
 - [x] Add explicit Foundations modules for operating systems, application programs, and language systems with EZROME examples.
+- [x] Add Microsoft Azure Fundamentals and cloud-computing methods to EZROME Foundations with EZROME architecture examples.
+- [x] Add IaaS, PaaS, and SaaS cloud service-model cards and an interactive comparison to Foundations.
+- [x] Add a fuller Azure Fundamentals section covering architecture, core services, governance, security, pricing, and shared responsibility with EZROME mappings.
+- [x] Verify the expanded Azure Fundamentals module on desktop and mobile before marking it complete.
+- [x] Verify the expanded Azure Fundamentals pillars on mobile after the broader section was added, then save a corrected checkpoint.
+- [ ] Save a new checkpoint after the expanded Azure Fundamentals mobile verification.
 - [x] Use the finalization roadmap as the active checklist and separate automatable implementation from owner-controlled launch inputs.
 - [x] Implement the attached free-first V1 release decision sheet and define safe Kimi K2.7 automation boundaries.
 - [x] Create the complete EZROME working policy package and an owner-detail inventory for final review and completion.
