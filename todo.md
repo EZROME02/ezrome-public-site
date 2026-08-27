@@ -79,3 +79,9 @@
 - [x] Add backend deployment scaffolding for the chosen Azure API target without committing secrets, with required GitHub settings documented.
 - [x] Save a new checkpoint after the Azure–Cloudflare scaffolding and backend deployment additions are verified.
 - [x] Add and verify the actionable Azure–Cloudflare owner runbook for staging, secrets, DNS, smoke tests, and rollback.
+- [x] Add a viewing-first vertical Shorts feed with scroll-snap playback, mute controls, share, report, and offline-save actions.
+- [x] Improve YouTube-style discovery with search, category filters, and a clearer watch-later path.
+- [x] Preserve rights-safe source labeling and creator upload controls while adding viewing-first behavior.
+- [x] Verify the viewing-first experience on desktop and mobile, then save a new checkpoint and sync GitHub.
+- [x] Add an explicit watch-later action to Explore cards and connect it to the existing offline/library flow.
+- [ ] Save a post-viewing-first checkpoint and push/verify the updated commit in the private GitHub repository.
