@@ -61,7 +61,7 @@
 - [x] Add a fuller Azure Fundamentals section covering architecture, core services, governance, security, pricing, and shared responsibility with EZROME mappings.
 - [x] Verify the expanded Azure Fundamentals module on desktop and mobile before marking it complete.
 - [x] Verify the expanded Azure Fundamentals pillars on mobile after the broader section was added, then save a corrected checkpoint.
-- [ ] Save a new checkpoint after the expanded Azure Fundamentals mobile verification.
+- [x] Save a new checkpoint after the expanded Azure Fundamentals mobile verification.
 - [x] Use the finalization roadmap as the active checklist and separate automatable implementation from owner-controlled launch inputs.
 - [x] Implement the attached free-first V1 release decision sheet and define safe Kimi K2.7 automation boundaries.
 - [x] Create the complete EZROME working policy package and an owner-detail inventory for final review and completion.
