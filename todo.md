@@ -85,3 +85,6 @@
 - [x] Verify the viewing-first experience on desktop and mobile, then save a new checkpoint and sync GitHub.
 - [x] Add an explicit watch-later action to Explore cards and connect it to the existing offline/library flow.
 - [x] Save a post-viewing-first checkpoint and push/verify the updated commit in the private GitHub repository.
+- [x] Prepare a Capacitor-based Android packaging path using application ID `com.ezrome.app` without signing credentials.
+- [x] Add Android packaging validation and owner handoff documentation.
+- [x] Verify the Android packaging handoff and save a new checkpoint.
