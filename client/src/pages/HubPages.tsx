@@ -155,6 +155,7 @@ function VerticalShortCard({
   item,
   index,
   onReport,
+  reportPending,
 }: {
   item: {
     id: number;
@@ -172,6 +173,7 @@ function VerticalShortCard({
   };
   index: number;
   onReport: (id: number) => void;
+  reportPending?: boolean;
 }) {
   const [muted, setMuted] = useState(true);
   const [shared, setShared] = useState(false);
@@ -241,7 +243,11 @@ function VerticalShortCard({
             <Share2 className="size-4" />
             <span>{shared ? "Shared" : "Share"}</span>
           </button>
-          <button onClick={() => onReport(item.id)}>
+          <button
+            onClick={() => onReport(item.id)}
+            disabled={reportPending}
+            aria-label={`Report ${item.title}`}
+          >
             <Flag className="size-4" />
             <span>Report</span>
           </button>
@@ -262,9 +268,15 @@ export function ShortsLane() {
     onSuccess: () => toast.success("Report submitted for human review."),
     onError: error => toast.error(error.message),
   });
+  const feedRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    const root = document.querySelector<HTMLElement>(".shorts-feed");
-    if (!root) return;
+    const root = feedRef.current;
+    if (!root || !shorts.data?.length) return;
+    const videos = Array.from(root.querySelectorAll<HTMLVideoElement>("video"));
+    if (typeof IntersectionObserver === "undefined") {
+      videos[0]?.play().catch(() => undefined);
+      return () => videos.forEach(video => video.pause());
+    }
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -276,8 +288,11 @@ export function ShortsLane() {
       },
       { root, threshold: [0, 0.7, 1] }
     );
-    root.querySelectorAll("video").forEach(video => observer.observe(video));
-    return () => observer.disconnect();
+    videos.forEach(video => observer.observe(video));
+    return () => {
+      observer.disconnect();
+      videos.forEach(video => video.pause());
+    };
   }, [shorts.data]);
   return (
     <HubShell active="Shorts">
@@ -311,8 +326,30 @@ export function ShortsLane() {
             <Bookmark className="size-4" /> Save what you want to revisit
           </span>
         </div>
-        {shorts.data?.length ? (
+        {shorts.isLoading ? (
+          <div className="lane-blank wide" aria-live="polite">
+            <Film className="size-7 animate-pulse" />
+            <h2>Loading the signal stream.</h2>
+            <p>Finding published shorts and preparing the viewer.</p>
+          </div>
+        ) : shorts.isError ? (
+          <div className="lane-blank wide" role="alert">
+            <Film className="size-7" />
+            <h2>The stream is unavailable.</h2>
+            <p>
+              Check your connection and try again. Your saved device library is
+              still available offline.
+            </p>
+            <button
+              className="loop-outline"
+              onClick={() => void shorts.refetch()}
+            >
+              Try again <ArrowRight className="size-4" />
+            </button>
+          </div>
+        ) : shorts.data?.length ? (
           <div
+            ref={feedRef}
             className="shorts-feed"
             aria-label="EZROME vertical short-video feed"
           >
@@ -321,6 +358,7 @@ export function ShortsLane() {
                 key={item.id}
                 item={item}
                 index={index}
+                reportPending={report.isPending}
                 onReport={id =>
                   report.mutate({
                     videoId: id,
@@ -332,7 +370,7 @@ export function ShortsLane() {
             ))}
           </div>
         ) : (
-          <div className="lane-blank wide">
+          <div className="lane-blank wide" role="status">
             <Film className="size-7" />
             <h2>No shorts have been published.</h2>
             <p>

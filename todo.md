@@ -88,3 +88,7 @@
 - [x] Prepare a Capacitor-based Android packaging path using application ID `com.ezrome.app` without signing credentials.
 - [x] Add Android packaging validation and owner handoff documentation.
 - [x] Verify the Android packaging handoff and save a new checkpoint.
+- [x] Review Shorts vertical scrolling, playback controls, actions, offline states, and responsive accessibility before Cloudflare setup.
+- [x] Fix and verify any Shorts interaction issues found during the release review.
+- [x] Save the reviewed Shorts interface checkpoint after automated and visual validation.
+- [ ] Save a post-Shorts-review checkpoint and push/verify the reviewed commit in the private GitHub repository.

@@ -25,6 +25,11 @@ describe("viewing-first media hub", () => {
     );
     expect(pageSource).toContain("navigator.share");
     expect(pageSource).toContain("rights-cleared signals");
+    expect(pageSource).toContain("shorts.isLoading");
+    expect(pageSource).toContain("shorts.isError");
+    expect(pageSource).toContain("shorts.refetch");
+    expect(pageSource).toContain('typeof IntersectionObserver === "undefined"');
+    expect(pageSource).toContain("reportPending");
   });
 
   it("keeps discovery search and category controls available", () => {
