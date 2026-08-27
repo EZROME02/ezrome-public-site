@@ -59,6 +59,9 @@
 - [x] Add Microsoft Azure Fundamentals and cloud-computing methods to EZROME Foundations with EZROME architecture examples.
 - [x] Add IaaS, PaaS, and SaaS cloud service-model cards and an interactive comparison to Foundations.
 - [x] Add a fuller Azure Fundamentals section covering architecture, core services, governance, security, pricing, and shared responsibility with EZROME mappings.
+- [x] Add the EZROME Azure Subscription → Resource Group → Static Web App/API/Database/Monitoring organization map with planned-resource labels.
+- [x] Verify the Azure resource organization map on desktop after implementation, then save a checkpoint.
+- [ ] Save and re-open the checklist after the Azure resource-map checkpoint.
 - [x] Verify the expanded Azure Fundamentals module on desktop and mobile before marking it complete.
 - [x] Verify the expanded Azure Fundamentals pillars on mobile after the broader section was added, then save a corrected checkpoint.
 - [x] Save a new checkpoint after the expanded Azure Fundamentals mobile verification.
