@@ -78,3 +78,4 @@
 - [x] Save a checkpoint after the Azure–Cloudflare implementation scaffolding.
 - [x] Add backend deployment scaffolding for the chosen Azure API target without committing secrets, with required GitHub settings documented.
 - [x] Save a new checkpoint after the Azure–Cloudflare scaffolding and backend deployment additions are verified.
+- [x] Add and verify the actionable Azure–Cloudflare owner runbook for staging, secrets, DNS, smoke tests, and rollback.
