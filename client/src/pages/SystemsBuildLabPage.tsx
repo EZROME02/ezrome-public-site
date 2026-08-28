@@ -1,60 +1,296 @@
 import { useMemo, useState } from "react";
-import { ArrowRight, Binary, Blocks, Check, Code2, Cpu, Database, Layers3, Monitor, RotateCcw, Workflow } from "lucide-react";
+import {
+  ArrowRight,
+  Binary,
+  Blocks,
+  Check,
+  Code2,
+  Cpu,
+  Database,
+  Layers3,
+  Monitor,
+  RotateCcw,
+  Workflow,
+} from "lucide-react";
 import { Link } from "wouter";
 import { HubShell } from "@/components/HubShell";
 
 const topics = [
-  { title: "Operating systems", kicker: "01 / PLATFORM", icon: Cpu, color: "cyan", body: "The core system software that manages hardware, memory, files, processes, permissions, devices, and the services applications depend on.", build: "Map how Android, browsers, servers, and the EZROME offline shell coordinate the experience." },
-  { title: "Graphical user interfaces", kicker: "02 / INTERFACE", icon: Monitor, color: "violet", body: "The visual language of windows, navigation, controls, feedback, and accessibility that turns system power into usable experiences.", build: "Break down the Signal Commons navigation, creator studio, offline library, and responsive layouts." },
-  { title: "Language systems", kicker: "03 / LANGUAGE", icon: Code2, color: "cyan", body: "Programming languages, translators, runtimes, libraries, and development tools form a system for expressing, transforming, and executing instructions.", build: "Trace TypeScript and React through translation, bundling, server execution, and the browser." },
-  { title: "Utility programs", kicker: "04 / TOOLING", icon: Blocks, color: "violet", body: "Focused tools that maintain, protect, inspect, configure, compress, back up, or improve a system.", build: "Identify the tools behind testing, storage safety, offline caching, migrations, and release checks." },
-  { title: "Application programs", kicker: "05 / PRODUCT", icon: Layers3, color: "cyan", body: "Programs designed for a user goal, such as communication, media, education, creativity, productivity, or community.", build: "Classify EZROME’s Watch, Shorts, Football, Community, Creator, AI, and Foundations surfaces." },
-  { title: "Systems development life cycle", kicker: "06 / DELIVERY", icon: Workflow, color: "violet", body: "A repeatable path from discovery and requirements through design, implementation, testing, release, operations, and improvement.", build: "Use the EZROME roadmap to move from signal to prototype, verified release candidate, and staged launch." },
-  { title: "Data representation", kicker: "07 / SIGNAL", icon: Binary, color: "cyan", body: "The ways systems encode text, numbers, images, audio, video, permissions, and states so they can be stored and processed.", build: "Explore bits, bytes, metadata, media keys, timestamps, offline records, and source-aware content states." },
+  {
+    title: "Operating systems",
+    kicker: "01 / PLATFORM",
+    icon: Cpu,
+    color: "cyan",
+    body: "The core system software that manages hardware, memory, files, processes, permissions, devices, and the services applications depend on.",
+    build:
+      "Map how Android, browsers, servers, and the EZROME offline shell coordinate the experience.",
+  },
+  {
+    title: "Graphical user interfaces",
+    kicker: "02 / INTERFACE",
+    icon: Monitor,
+    color: "violet",
+    body: "The visual language of windows, navigation, controls, feedback, and accessibility that turns system power into usable experiences.",
+    build:
+      "Break down the Signal Commons navigation, creator studio, offline library, and responsive layouts.",
+  },
+  {
+    title: "Language systems",
+    kicker: "03 / LANGUAGE",
+    icon: Code2,
+    color: "cyan",
+    body: "Programming languages, translators, runtimes, libraries, and development tools form a system for expressing, transforming, and executing instructions.",
+    build:
+      "Trace TypeScript and React through translation, bundling, server execution, and the browser.",
+  },
+  {
+    title: "Utility programs",
+    kicker: "04 / TOOLING",
+    icon: Blocks,
+    color: "violet",
+    body: "Focused tools that maintain, protect, inspect, configure, compress, back up, or improve a system.",
+    build:
+      "Identify the tools behind testing, storage safety, offline caching, migrations, and release checks.",
+  },
+  {
+    title: "Application programs",
+    kicker: "05 / PRODUCT",
+    icon: Layers3,
+    color: "cyan",
+    body: "Programs designed for a user goal, such as communication, media, education, creativity, productivity, or community.",
+    build:
+      "Classify EZROME’s Watch, Shorts, Football, Community, Creator, AI, and Foundations surfaces.",
+  },
+  {
+    title: "Systems development life cycle",
+    kicker: "06 / DELIVERY",
+    icon: Workflow,
+    color: "violet",
+    body: "A repeatable path from discovery and requirements through design, implementation, testing, release, operations, and improvement.",
+    build:
+      "Use the EZROME roadmap to move from signal to prototype, verified release candidate, and staged launch.",
+  },
+  {
+    title: "Data representation",
+    kicker: "07 / SIGNAL",
+    icon: Binary,
+    color: "cyan",
+    body: "The ways systems encode text, numbers, images, audio, video, permissions, and states so they can be stored and processed.",
+    build:
+      "Explore bits, bytes, metadata, media keys, timestamps, offline records, and source-aware content states.",
+  },
+] as const;
+
+const codingPrinciples = [
+  [
+    "Understand the problem first",
+    "Clarify the goal, available information, expected output, rules, and limitations before writing code.",
+  ],
+  [
+    "Break big problems into small problems",
+    "Decompose a large system into focused parts such as interface, login, database, AI connection, tasks, and deployment.",
+  ],
+  [
+    "Input → process → output",
+    "Trace what enters a program, how it is transformed, and what result the user or another system receives.",
+  ],
+  [
+    "Use variables to store information",
+    "Give data meaningful names so values can be changed, reused, and understood by the next person reading the code.",
+  ],
+  [
+    "Use conditions to make decisions",
+    "Use if/else logic when a program must respond differently to different states or user inputs.",
+  ],
+  [
+    "Use loops for repetition",
+    "Repeat a rule with a loop instead of copying the same instruction many times.",
+  ],
+  [
+    "Use functions to organize code",
+    "Package reusable logic into named functions that each have a clear responsibility.",
+  ],
+  [
+    "Keep code simple",
+    "Prefer the simplest clear solution that solves the problem; avoid complexity that the requirement does not need.",
+  ],
+  [
+    "Do not repeat yourself",
+    "Extract repeated logic into reusable structures so one change does not require fixing the same idea in many places.",
+  ],
+  [
+    "Expect errors",
+    "Treat errors as information: identify, understand, debug, fix, test, and improve.",
+  ],
+  [
+    "Test your code",
+    "Check expected inputs, invalid inputs, empty states, unknown users, network failure, and other realistic paths.",
+  ],
+  [
+    "Write code humans can understand",
+    "Use meaningful names, clear structure, and explanations that help your future self and collaborators maintain the system.",
+  ],
+] as const;
+
+const codingSequence = [
+  "Programming logic",
+  "Variables and data types",
+  "Operators",
+  "Conditions",
+  "Loops",
+  "Functions",
+  "Lists, arrays, and objects",
+  "Error handling",
+  "Git and GitHub",
+  "APIs",
+  "Databases",
+  "Frontend and backend",
+  "AI integration",
 ] as const;
 
 const lifecycle = [
-  ["Information systems", "See the people, processes, data, hardware, software, and networks that work together to create useful information. EZROME artifact: the Signal Commons platform map."],
-  ["Preliminary investigation", "Clarify the opportunity, scope, stakeholders, constraints, risks, and feasibility before committing to a build. EZROME artifact: the V1 release decision sheet."],
-  ["Systems analysis", "Study requirements, workflows, user needs, data states, and acceptance criteria so the real problem is understood. EZROME artifact: the creator, offline, moderation, and policy requirements."],
-  ["Systems design", "Choose the architecture, interfaces, data model, security boundaries, and experience patterns that will solve the defined problem. EZROME artifact: the lane architecture and governance model."],
-  ["Systems development", "Implement the approved design, integrate services, document decisions, and keep changes traceable. EZROME artifact: the hub, creator studio, Build Lab, and server procedures."],
-  ["Systems implementation", "Test with real users, prepare support and operations, train stakeholders, stage the release, and improve from evidence. EZROME artifact: the Play Console worksheet and closed-test script."],
+  [
+    "Information systems",
+    "See the people, processes, data, hardware, software, and networks that work together to create useful information. EZROME artifact: the Signal Commons platform map.",
+  ],
+  [
+    "Preliminary investigation",
+    "Clarify the opportunity, scope, stakeholders, constraints, risks, and feasibility before committing to a build. EZROME artifact: the V1 release decision sheet.",
+  ],
+  [
+    "Systems analysis",
+    "Study requirements, workflows, user needs, data states, and acceptance criteria so the real problem is understood. EZROME artifact: the creator, offline, moderation, and policy requirements.",
+  ],
+  [
+    "Systems design",
+    "Choose the architecture, interfaces, data model, security boundaries, and experience patterns that will solve the defined problem. EZROME artifact: the lane architecture and governance model.",
+  ],
+  [
+    "Systems development",
+    "Implement the approved design, integrate services, document decisions, and keep changes traceable. EZROME artifact: the hub, creator studio, Build Lab, and server procedures.",
+  ],
+  [
+    "Systems implementation",
+    "Test with real users, prepare support and operations, train stakeholders, stage the release, and improve from evidence. EZROME artifact: the Play Console worksheet and closed-test script.",
+  ],
 ] as const;
 
 const translatorSteps = [
-  ["Source code", "TypeScript and JSX express the intent in a human-readable form."],
-  ["Transform", "The toolchain resolves imports, types, components, and assets."],
+  [
+    "Source code",
+    "TypeScript and JSX express the intent in a human-readable form.",
+  ],
+  [
+    "Transform",
+    "The toolchain resolves imports, types, components, and assets.",
+  ],
   ["Bundle", "Code is optimized into browser-ready modules and server output."],
   ["Execute", "The browser and server run the resulting instructions."],
 ] as const;
 
 const cloudModels = [
-  ["IaaS", "Infrastructure as a Service", "You manage operating systems, applications, data, and configuration while the provider manages physical infrastructure and virtualization.", "Azure Virtual Machines and virtual networks.", "Use when EZROME needs control over the operating environment."],
-  ["PaaS", "Platform as a Service", "You manage application code and data while the provider manages the operating system, runtime, infrastructure, and much of the platform maintenance.", "Azure App Service and managed databases.", "Use when EZROME wants to ship application features without managing servers."],
-  ["SaaS", "Software as a Service", "You use a complete provider-hosted application while the provider manages the underlying platform and infrastructure.", "Microsoft 365 and other finished cloud applications.", "Use when EZROME consumes a ready-made capability rather than building the platform itself."],
+  [
+    "IaaS",
+    "Infrastructure as a Service",
+    "You manage operating systems, applications, data, and configuration while the provider manages physical infrastructure and virtualization.",
+    "Azure Virtual Machines and virtual networks.",
+    "Use when EZROME needs control over the operating environment.",
+  ],
+  [
+    "PaaS",
+    "Platform as a Service",
+    "You manage application code and data while the provider manages the operating system, runtime, infrastructure, and much of the platform maintenance.",
+    "Azure App Service and managed databases.",
+    "Use when EZROME wants to ship application features without managing servers.",
+  ],
+  [
+    "SaaS",
+    "Software as a Service",
+    "You use a complete provider-hosted application while the provider manages the underlying platform and infrastructure.",
+    "Microsoft 365 and other finished cloud applications.",
+    "Use when EZROME consumes a ready-made capability rather than building the platform itself.",
+  ],
 ] as const;
 
 const azureFoundations = [
-  ["Architecture", "Azure regions, region pairs, availability zones, resource groups, subscriptions, and management groups organize where resources run and how they are governed.", "Map EZROME’s web, API, database, storage, and offline clients into a deliberate resource hierarchy."],
-  ["Core services", "Compute, networking, storage, databases, identity, monitoring, and integration services provide the building blocks for cloud applications.", "Relate EZROME’s server procedures, managed database, media storage, authentication, and analytics to these service families."],
-  ["Governance", "Policies, role-based access control, tags, locks, resource organization, and management tools help teams control change, access, and cost.", "Use least privilege, environment labels, release checklists, and founder-owned access boundaries for EZROME operations."],
-  ["Security", "Identity protection, network controls, encryption, secrets management, monitoring, and secure development reduce risk across the cloud stack.", "Keep OAuth secrets, storage credentials, signing keys, and moderation access server-side and out of public client code."],
-  ["Pricing and lifecycle", "Cloud choices have consumption, licensing, support, and operational costs; budgets, cost analysis, service limits, and lifecycle planning support responsible use.", "Track media storage, database, AI, bandwidth, and future billing costs before scaling EZROME usage."],
-  ["Shared responsibility", "The provider secures the cloud infrastructure, while the customer remains responsible for configuration, identities, data, code, permissions, and workload-specific controls.", "EZROME owns account safety, creator rights, moderation, deletion, policy compliance, and the security of its application logic."],
-  ] as const;
-
-const azureResourceMap = [
-  ["Azure Subscription", "EZROME subscription boundary", "Owner-managed billing, access, and resource governance boundary."],
-  ["EZROME Resource Group", "ezrome-prod / planned", "A lifecycle boundary that keeps the V1 platform resources organized together."],
-  ["Static Web App", "React / Vite frontend · planned", "Hosts the public hub, Foundations learning lane, policy pages, and future Android web shell."],
-  ["API", "Azure Functions / planned", "Receives `/api` requests for authenticated procedures, moderation, creator actions, and entitlements."],
-  ["Database", "Supabase or Azure Database · decision pending", "Persists users, channels, media metadata, governance records, and premium state."],
-  ["Monitoring", "Azure Monitor / planned", "Tracks health, errors, performance, cost signals, and release evidence."],
+  [
+    "Architecture",
+    "Azure regions, region pairs, availability zones, resource groups, subscriptions, and management groups organize where resources run and how they are governed.",
+    "Map EZROME’s web, API, database, storage, and offline clients into a deliberate resource hierarchy.",
+  ],
+  [
+    "Core services",
+    "Compute, networking, storage, databases, identity, monitoring, and integration services provide the building blocks for cloud applications.",
+    "Relate EZROME’s server procedures, managed database, media storage, authentication, and analytics to these service families.",
+  ],
+  [
+    "Governance",
+    "Policies, role-based access control, tags, locks, resource organization, and management tools help teams control change, access, and cost.",
+    "Use least privilege, environment labels, release checklists, and founder-owned access boundaries for EZROME operations.",
+  ],
+  [
+    "Security",
+    "Identity protection, network controls, encryption, secrets management, monitoring, and secure development reduce risk across the cloud stack.",
+    "Keep OAuth secrets, storage credentials, signing keys, and moderation access server-side and out of public client code.",
+  ],
+  [
+    "Pricing and lifecycle",
+    "Cloud choices have consumption, licensing, support, and operational costs; budgets, cost analysis, service limits, and lifecycle planning support responsible use.",
+    "Track media storage, database, AI, bandwidth, and future billing costs before scaling EZROME usage.",
+  ],
+  [
+    "Shared responsibility",
+    "The provider secures the cloud infrastructure, while the customer remains responsible for configuration, identities, data, code, permissions, and workload-specific controls.",
+    "EZROME owns account safety, creator rights, moderation, deletion, policy compliance, and the security of its application logic.",
+  ],
 ] as const;
 
-  function toBinary(value: string) { return Array.from(value).map((char) => char.charCodeAt(0).toString(2).padStart(8, "0")).join(" "); }
-function fromBinary(value: string) { return value.trim().split(/\s+/).filter(Boolean).map((chunk) => String.fromCharCode(parseInt(chunk, 2))).join(""); }
+const azureResourceMap = [
+  [
+    "Azure Subscription",
+    "EZROME subscription boundary",
+    "Owner-managed billing, access, and resource governance boundary.",
+  ],
+  [
+    "EZROME Resource Group",
+    "ezrome-prod / planned",
+    "A lifecycle boundary that keeps the V1 platform resources organized together.",
+  ],
+  [
+    "Static Web App",
+    "React / Vite frontend · planned",
+    "Hosts the public hub, Foundations learning lane, policy pages, and future Android web shell.",
+  ],
+  [
+    "API",
+    "Azure Functions / planned",
+    "Receives `/api` requests for authenticated procedures, moderation, creator actions, and entitlements.",
+  ],
+  [
+    "Database",
+    "Supabase or Azure Database · decision pending",
+    "Persists users, channels, media metadata, governance records, and premium state.",
+  ],
+  [
+    "Monitoring",
+    "Azure Monitor / planned",
+    "Tracks health, errors, performance, cost signals, and release evidence.",
+  ],
+] as const;
+
+function toBinary(value: string) {
+  return Array.from(value)
+    .map(char => char.charCodeAt(0).toString(2).padStart(8, "0"))
+    .join(" ");
+}
+function fromBinary(value: string) {
+  return value
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(chunk => String.fromCharCode(parseInt(chunk, 2)))
+    .join("");
+}
 
 export function SystemsBuildLabPage() {
   const [text, setText] = useState("EZROME");
@@ -62,20 +298,495 @@ export function SystemsBuildLabPage() {
   const [stage, setStage] = useState(0);
   const [translatorStep, setTranslatorStep] = useState(0);
   const [cloudModel, setCloudModel] = useState(0);
+  const [codingPrinciple, setCodingPrinciple] = useState(0);
   const [binaryMode, setBinaryMode] = useState<"text" | "binary">("text");
-  const binaryOutput = useMemo(() => binaryMode === "text" ? toBinary(text) : fromBinary(binary), [binaryMode, binary, text]);
-  const resetDemos = () => { setText("EZROME"); setBinary(toBinary("EZROME")); setStage(0); setTranslatorStep(0); setCloudModel(0); setBinaryMode("text"); };
+  const binaryOutput = useMemo(
+    () => (binaryMode === "text" ? toBinary(text) : fromBinary(binary)),
+    [binaryMode, binary, text]
+  );
+  const resetDemos = () => {
+    setText("EZROME");
+    setBinary(toBinary("EZROME"));
+    setStage(0);
+    setTranslatorStep(0);
+    setCloudModel(0);
+    setCodingPrinciple(0);
+    setBinaryMode("text");
+  };
 
-  return <HubShell active="Build Lab"><section className="lane-intro compact build-lab-hero"><div><span>EZROME / TECH FOUNDATIONS</span><h1>Understand the system.<br /><em>Build with intent.</em></h1><p>A practical learning lane for the ideas underneath every digital experience—from operating systems and interfaces to data, software, and the development life cycle.</p><div className="build-lab-actions"><Link href="/release-checklist" className="top-create">View EZROME release map <ArrowRight className="size-4" /></Link><Link href="/projects/ezrome-ai" className="loop-outline">See the build in public</Link></div></div><div className="build-lab-orbit" aria-hidden="true"><div className="orbit-core"><span>EZ</span></div><i /><i /><i /></div></section><section className="channel-content"><div className="hub-section-title"><div><span>THE FOUNDATION STACK</span><h2>Seven ways to read a digital world.</h2></div><span>07 / TOPICS</span></div><div className="systems-topic-grid">{topics.map(({ title, kicker, icon: Icon, color, body, build }) => <article className={`systems-topic-card systems-topic-${color}`} key={title}><div className="systems-topic-top"><span>{kicker}</span><Icon className="size-6" /></div><h3>{title}</h3><p>{body}</p><div className="systems-topic-build"><span>EZROME CONNECTION</span><strong>{build}</strong></div></article>)}</div>
+  return (
+    <HubShell active="Build Lab">
+      <section className="lane-intro compact build-lab-hero">
+        <div>
+          <span>EZROME / TECH FOUNDATIONS</span>
+          <h1>
+            Understand the system.
+            <br />
+            <em>Build with intent.</em>
+          </h1>
+          <p>
+            A practical learning lane for the ideas underneath every digital
+            experience—from operating systems and interfaces to data, software,
+            and the development life cycle.
+          </p>
+          <div className="build-lab-actions">
+            <Link href="/release-checklist" className="top-create">
+              View EZROME release map <ArrowRight className="size-4" />
+            </Link>
+            <Link href="/projects/ezrome-ai" className="loop-outline">
+              See the build in public
+            </Link>
+          </div>
+        </div>
+        <div className="build-lab-orbit" aria-hidden="true">
+          <div className="orbit-core">
+            <span>EZ</span>
+          </div>
+          <i />
+          <i />
+          <i />
+        </div>
+      </section>
+      <section className="channel-content">
+        <div className="hub-section-title">
+          <div>
+            <span>THE FOUNDATION STACK</span>
+            <h2>Seven ways to read a digital world.</h2>
+          </div>
+          <span>07 / TOPICS</span>
+        </div>
+        <div className="systems-topic-grid">
+          {topics.map(({ title, kicker, icon: Icon, color, body, build }) => (
+            <article
+              className={`systems-topic-card systems-topic-${color}`}
+              key={title}
+            >
+              <div className="systems-topic-top">
+                <span>{kicker}</span>
+                <Icon className="size-6" />
+              </div>
+              <h3>{title}</h3>
+              <p>{body}</p>
+              <div className="systems-topic-build">
+                <span>EZROME CONNECTION</span>
+                <strong>{build}</strong>
+              </div>
+            </article>
+          ))}
+        </div>
 
-  <div className="hub-section-title systems-demo-heading"><div><span>INTERACTIVE SIGNALS</span><h2>Try the concepts, don’t just read them.</h2></div><button className="loop-outline systems-reset" onClick={resetDemos}><RotateCcw className="size-4" /> Reset demos</button></div>
-  <div className="systems-demo-grid">
-    <article className="systems-demo-card"><div className="systems-demo-label"><span>DEMO 01 / DATA REPRESENTATION</span><Binary className="size-5" /></div><h3>Text ↔ binary</h3><p>See how a short text signal can be represented as eight-bit character values. Edit either side and observe the representation change.</p><div className="systems-toggle" role="group" aria-label="Choose binary converter direction"><button className={binaryMode === "text" ? "is-selected" : ""} onClick={() => setBinaryMode("text")}>Text to binary</button><button className={binaryMode === "binary" ? "is-selected" : ""} onClick={() => setBinaryMode("binary")}>Binary to text</button></div>{binaryMode === "text" ? <label className="systems-field">Text input<input value={text} maxLength={18} onChange={(event) => { setText(event.target.value); setBinary(toBinary(event.target.value)); }} /></label> : <label className="systems-field">Eight-bit groups<input value={binary} onChange={(event) => setBinary(event.target.value)} /></label>}<div className="systems-output" aria-live="polite"><span>OUTPUT</span><strong>{binaryOutput || "—"}</strong></div><small className="systems-learning">Learning outcome: data is a representation layer, not the human meaning itself.</small></article>
-    <article className="systems-demo-card"><div className="systems-demo-label"><span>DEMO 02 / DELIVERY</span><Workflow className="size-5" /></div><h3>Walk the SDLC</h3><p>Move through the information-systems path and connect each stage to the evidence a responsible team should produce.</p><div className="systems-progress" aria-label={`SDLC stage ${stage + 1} of ${lifecycle.length}`}><div style={{ width: `${((stage + 1) / lifecycle.length) * 100}%` }} /></div><div className="systems-stage"><span>STAGE {String(stage + 1).padStart(2, "0")} / {lifecycle.length}</span><h4>{lifecycle[stage][0]}</h4><p>{lifecycle[stage][1]}</p></div><div className="systems-demo-actions"><button className="loop-outline" disabled={stage === 0} onClick={() => setStage((current) => Math.max(0, current - 1))}>Previous</button><button className="top-create" disabled={stage === lifecycle.length - 1} onClick={() => setStage((current) => Math.min(lifecycle.length - 1, current + 1))}>{stage === lifecycle.length - 1 ? "Complete" : "Next stage"} <ArrowRight className="size-4" /></button></div><small className="systems-learning">Learning outcome: a system becomes trustworthy when investigation, analysis, design, development, and implementation stay connected.</small></article>
-    <article className="systems-demo-card"><div className="systems-demo-label"><span>DEMO 03 / LANGUAGE TRANSLATORS</span><Code2 className="size-5" /></div><h3>Follow the translation flow</h3><p>Step through how a developer idea becomes instructions that a browser or server can execute.</p><div className="translator-flow">{translatorSteps.map(([title], index) => <button key={title} className={translatorStep === index ? "translator-node is-selected" : "translator-node"} onClick={() => setTranslatorStep(index)}><span>{String(index + 1).padStart(2, "0")}</span><strong>{title}</strong></button>)}</div><div className="systems-stage"><span>SELECTED LAYER</span><h4>{translatorSteps[translatorStep][0]}</h4><p>{translatorSteps[translatorStep][1]}</p></div><div className="systems-demo-actions"><button className="top-create" onClick={() => setTranslatorStep((current) => (current + 1) % translatorSteps.length)}>Advance flow <ArrowRight className="size-4" /></button></div><small className="systems-learning">Learning outcome: translators preserve intent while changing representation.</small></article>
-  </div>
-  <div className="azure-foundations-module"><div className="hub-section-title"><div><span>AZURE FUNDAMENTALS / CLOUD FOUNDATIONS</span><h2>Understand the platform beneath the app.</h2></div><span>06 / PILLARS</span></div><div className="azure-foundations-grid">{azureFoundations.map(([title, body, ezrome]) => <article className="azure-foundation-card" key={title}><span>AZURE PILLAR</span><h3>{title}</h3><p>{body}</p><div><small>EZROME MAPPING</small><strong>{ezrome}</strong></div></article>)}</div><small className="systems-learning">Learning outcome: Azure fundamentals connect architecture, services, governance, security, cost, and responsibility into one operating model.</small></div>
-  <div className="azure-resource-map"><div className="hub-section-title"><div><span>AZURE FUNDAMENTALS / RESOURCE ORGANIZATION</span><h2>One subscription. One operating boundary.</h2></div><span>PLANNED MAP</span></div><div className="azure-resource-tree" aria-label="Planned Azure resource organization"><div className="azure-resource-root"><span>SUBSCRIPTION</span><strong>EZROME Azure Subscription</strong></div><div className="azure-resource-connector" aria-hidden="true">↓</div><div className="azure-resource-root azure-resource-group"><span>RESOURCE GROUP</span><strong>EZROME Resource Group</strong><small>Lifecycle and governance boundary</small></div><div className="azure-resource-children">{azureResourceMap.slice(2).map(([title, detail, body]) => <article className="azure-resource-card" key={title}><span>{title.toUpperCase()}</span><strong>{detail}</strong><p>{body}</p></article>)}</div></div><small className="systems-learning">Architecture status: planned mapping only. Confirm the Azure subscription, resource group, database choice, and deployment connection before representing these resources as provisioned.</small></div>
-  <div className="systems-cloud-module"><div className="hub-section-title"><div><span>AZURE FUNDAMENTALS / CLOUD METHODS</span><h2>Choose the right level of responsibility.</h2></div><span>IAAS · PAAS · SAAS</span></div><div className="cloud-model-tabs" role="tablist" aria-label="Cloud service models">{cloudModels.map(([short, name], index) => <button key={short} role="tab" aria-selected={cloudModel === index} className={cloudModel === index ? "is-selected" : ""} onClick={() => setCloudModel(index)}><strong>{short}</strong><span>{name}</span></button>)}</div><div className="cloud-model-detail" aria-live="polite"><div><span>SELECTED MODEL</span><h3>{cloudModels[cloudModel][0]} / {cloudModels[cloudModel][1]}</h3><p>{cloudModels[cloudModel][2]}</p></div><div className="cloud-model-meta"><span>AZURE EXAMPLE</span><strong>{cloudModels[cloudModel][3]}</strong><span>EZROME FIT</span><strong>{cloudModels[cloudModel][4]}</strong></div></div><small className="systems-learning">Learning outcome: as you move from IaaS to SaaS, the provider manages more of the stack and you focus more on using the capability.</small></div>
-  <div className="watch-description systems-build-prompt"><div><span>BUILD LAB PROMPT</span><h3>Pick one layer. Explain it in your own signal.</h3><p>Create a short video, diagram, post, or mini-demo showing how one of these foundations shapes the apps people use every day. Draft it in Creator Studio, then share the build process with the community.</p></div><Link href="/create" className="top-create">Open Creator Studio <ArrowRight className="size-4" /></Link></div><div className="systems-data-strip"><Database className="size-5" /><span>LEARN BY TRACING THE FLOW</span><strong>hardware → system software → application → data → human outcome</strong></div></section></HubShell>;
+        <section
+          className="coding-principles-module"
+          aria-labelledby="coding-principles-title"
+        >
+          <div className="hub-section-title">
+            <div>
+              <span>PRINCIPLES OF CODING / LESSON 01</span>
+              <h2 id="coding-principles-title">
+                Solve the problem before you write the code.
+              </h2>
+            </div>
+            <span>12 / PRINCIPLES</span>
+          </div>
+          <div className="coding-principles-grid">
+            <article className="coding-principle-card">
+              <div className="systems-demo-label">
+                <span>
+                  PRINCIPLE {String(codingPrinciple + 1).padStart(2, "0")} /{" "}
+                  {codingPrinciples.length}
+                </span>
+                <Code2 className="size-5" />
+              </div>
+              <h3>{codingPrinciples[codingPrinciple][0]}</h3>
+              <p>{codingPrinciples[codingPrinciple][1]}</p>
+              <div className="coding-principle-example">
+                <span>EZROME EXAMPLE</span>
+                <strong>
+                  {codingPrinciple === 0
+                    ? "Define the viewer goal, available media, expected state, and offline limits before building the feed."
+                    : codingPrinciple === 1
+                      ? "Separate feed discovery, video playback, reporting, saving, and creator upload into focused surfaces."
+                      : codingPrinciple === 2
+                        ? "Question → AI/source analysis → grounded summary is the newsroom input-process-output loop."
+                        : "Apply this principle to the Shorts viewer, Build Lab, or creator studio before shipping."}
+                </strong>
+              </div>
+              <div className="systems-demo-actions">
+                <button
+                  className="loop-outline"
+                  disabled={codingPrinciple === 0}
+                  onClick={() =>
+                    setCodingPrinciple(current => Math.max(0, current - 1))
+                  }
+                >
+                  Previous
+                </button>
+                <button
+                  className="top-create"
+                  disabled={codingPrinciple === codingPrinciples.length - 1}
+                  onClick={() =>
+                    setCodingPrinciple(current =>
+                      Math.min(codingPrinciples.length - 1, current + 1)
+                    )
+                  }
+                >
+                  {codingPrinciple === codingPrinciples.length - 1
+                    ? "Complete"
+                    : "Next principle"}{" "}
+                  <ArrowRight className="size-4" />
+                </button>
+              </div>
+            </article>
+            <article className="coding-cycle-card">
+              <div className="systems-demo-label">
+                <span>BUILD CYCLE / DEBUG WITH INTENT</span>
+                <Workflow className="size-5" />
+              </div>
+              <h3>
+                Problem → understand → break down → design → write → test →
+                improve → deploy
+              </h3>
+              <p>
+                Errors are information. Identify the unexpected result,
+                understand the cause, fix the smallest responsible part, test
+                realistic inputs, and improve from evidence.
+              </p>
+              <div
+                className="coding-cycle-flow"
+                aria-label="Coding problem-solving cycle"
+              >
+                {[
+                  "Problem",
+                  "Understand",
+                  "Break down",
+                  "Design",
+                  "Write",
+                  "Test",
+                  "Improve",
+                  "Deploy",
+                ].map((step, index) => (
+                  <span
+                    key={step}
+                    className={index <= codingPrinciple % 8 ? "is-reached" : ""}
+                  >
+                    {String(index + 1).padStart(2, "0")} {step}
+                  </span>
+                ))}
+              </div>
+              <div className="coding-sequence">
+                <span>LEARNING SEQUENCE</span>
+                <p>{codingSequence.join("  →  ")}</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <div className="hub-section-title systems-demo-heading">
+          <div>
+            <span>INTERACTIVE SIGNALS</span>
+            <h2>Try the concepts, don’t just read them.</h2>
+          </div>
+          <button className="loop-outline systems-reset" onClick={resetDemos}>
+            <RotateCcw className="size-4" /> Reset demos
+          </button>
+        </div>
+        <div className="systems-demo-grid">
+          <article className="systems-demo-card">
+            <div className="systems-demo-label">
+              <span>DEMO 01 / DATA REPRESENTATION</span>
+              <Binary className="size-5" />
+            </div>
+            <h3>Text ↔ binary</h3>
+            <p>
+              See how a short text signal can be represented as eight-bit
+              character values. Edit either side and observe the representation
+              change.
+            </p>
+            <div
+              className="systems-toggle"
+              role="group"
+              aria-label="Choose binary converter direction"
+            >
+              <button
+                className={binaryMode === "text" ? "is-selected" : ""}
+                onClick={() => setBinaryMode("text")}
+              >
+                Text to binary
+              </button>
+              <button
+                className={binaryMode === "binary" ? "is-selected" : ""}
+                onClick={() => setBinaryMode("binary")}
+              >
+                Binary to text
+              </button>
+            </div>
+            {binaryMode === "text" ? (
+              <label className="systems-field">
+                Text input
+                <input
+                  value={text}
+                  maxLength={18}
+                  onChange={event => {
+                    setText(event.target.value);
+                    setBinary(toBinary(event.target.value));
+                  }}
+                />
+              </label>
+            ) : (
+              <label className="systems-field">
+                Eight-bit groups
+                <input
+                  value={binary}
+                  onChange={event => setBinary(event.target.value)}
+                />
+              </label>
+            )}
+            <div className="systems-output" aria-live="polite">
+              <span>OUTPUT</span>
+              <strong>{binaryOutput || "—"}</strong>
+            </div>
+            <small className="systems-learning">
+              Learning outcome: data is a representation layer, not the human
+              meaning itself.
+            </small>
+          </article>
+          <article className="systems-demo-card">
+            <div className="systems-demo-label">
+              <span>DEMO 02 / DELIVERY</span>
+              <Workflow className="size-5" />
+            </div>
+            <h3>Walk the SDLC</h3>
+            <p>
+              Move through the information-systems path and connect each stage
+              to the evidence a responsible team should produce.
+            </p>
+            <div
+              className="systems-progress"
+              aria-label={`SDLC stage ${stage + 1} of ${lifecycle.length}`}
+            >
+              <div
+                style={{ width: `${((stage + 1) / lifecycle.length) * 100}%` }}
+              />
+            </div>
+            <div className="systems-stage">
+              <span>
+                STAGE {String(stage + 1).padStart(2, "0")} / {lifecycle.length}
+              </span>
+              <h4>{lifecycle[stage][0]}</h4>
+              <p>{lifecycle[stage][1]}</p>
+            </div>
+            <div className="systems-demo-actions">
+              <button
+                className="loop-outline"
+                disabled={stage === 0}
+                onClick={() => setStage(current => Math.max(0, current - 1))}
+              >
+                Previous
+              </button>
+              <button
+                className="top-create"
+                disabled={stage === lifecycle.length - 1}
+                onClick={() =>
+                  setStage(current =>
+                    Math.min(lifecycle.length - 1, current + 1)
+                  )
+                }
+              >
+                {stage === lifecycle.length - 1 ? "Complete" : "Next stage"}{" "}
+                <ArrowRight className="size-4" />
+              </button>
+            </div>
+            <small className="systems-learning">
+              Learning outcome: a system becomes trustworthy when investigation,
+              analysis, design, development, and implementation stay connected.
+            </small>
+          </article>
+          <article className="systems-demo-card">
+            <div className="systems-demo-label">
+              <span>DEMO 03 / LANGUAGE TRANSLATORS</span>
+              <Code2 className="size-5" />
+            </div>
+            <h3>Follow the translation flow</h3>
+            <p>
+              Step through how a developer idea becomes instructions that a
+              browser or server can execute.
+            </p>
+            <div className="translator-flow">
+              {translatorSteps.map(([title], index) => (
+                <button
+                  key={title}
+                  className={
+                    translatorStep === index
+                      ? "translator-node is-selected"
+                      : "translator-node"
+                  }
+                  onClick={() => setTranslatorStep(index)}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{title}</strong>
+                </button>
+              ))}
+            </div>
+            <div className="systems-stage">
+              <span>SELECTED LAYER</span>
+              <h4>{translatorSteps[translatorStep][0]}</h4>
+              <p>{translatorSteps[translatorStep][1]}</p>
+            </div>
+            <div className="systems-demo-actions">
+              <button
+                className="top-create"
+                onClick={() =>
+                  setTranslatorStep(
+                    current => (current + 1) % translatorSteps.length
+                  )
+                }
+              >
+                Advance flow <ArrowRight className="size-4" />
+              </button>
+            </div>
+            <small className="systems-learning">
+              Learning outcome: translators preserve intent while changing
+              representation.
+            </small>
+          </article>
+        </div>
+        <div className="azure-foundations-module">
+          <div className="hub-section-title">
+            <div>
+              <span>AZURE FUNDAMENTALS / CLOUD FOUNDATIONS</span>
+              <h2>Understand the platform beneath the app.</h2>
+            </div>
+            <span>06 / PILLARS</span>
+          </div>
+          <div className="azure-foundations-grid">
+            {azureFoundations.map(([title, body, ezrome]) => (
+              <article className="azure-foundation-card" key={title}>
+                <span>AZURE PILLAR</span>
+                <h3>{title}</h3>
+                <p>{body}</p>
+                <div>
+                  <small>EZROME MAPPING</small>
+                  <strong>{ezrome}</strong>
+                </div>
+              </article>
+            ))}
+          </div>
+          <small className="systems-learning">
+            Learning outcome: Azure fundamentals connect architecture, services,
+            governance, security, cost, and responsibility into one operating
+            model.
+          </small>
+        </div>
+        <div className="azure-resource-map">
+          <div className="hub-section-title">
+            <div>
+              <span>AZURE FUNDAMENTALS / RESOURCE ORGANIZATION</span>
+              <h2>One subscription. One operating boundary.</h2>
+            </div>
+            <span>PLANNED MAP</span>
+          </div>
+          <div
+            className="azure-resource-tree"
+            aria-label="Planned Azure resource organization"
+          >
+            <div className="azure-resource-root">
+              <span>SUBSCRIPTION</span>
+              <strong>EZROME Azure Subscription</strong>
+            </div>
+            <div className="azure-resource-connector" aria-hidden="true">
+              ↓
+            </div>
+            <div className="azure-resource-root azure-resource-group">
+              <span>RESOURCE GROUP</span>
+              <strong>EZROME Resource Group</strong>
+              <small>Lifecycle and governance boundary</small>
+            </div>
+            <div className="azure-resource-children">
+              {azureResourceMap.slice(2).map(([title, detail, body]) => (
+                <article className="azure-resource-card" key={title}>
+                  <span>{title.toUpperCase()}</span>
+                  <strong>{detail}</strong>
+                  <p>{body}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <small className="systems-learning">
+            Architecture status: planned mapping only. Confirm the Azure
+            subscription, resource group, database choice, and deployment
+            connection before representing these resources as provisioned.
+          </small>
+        </div>
+        <div className="systems-cloud-module">
+          <div className="hub-section-title">
+            <div>
+              <span>AZURE FUNDAMENTALS / CLOUD METHODS</span>
+              <h2>Choose the right level of responsibility.</h2>
+            </div>
+            <span>IAAS · PAAS · SAAS</span>
+          </div>
+          <div
+            className="cloud-model-tabs"
+            role="tablist"
+            aria-label="Cloud service models"
+          >
+            {cloudModels.map(([short, name], index) => (
+              <button
+                key={short}
+                role="tab"
+                aria-selected={cloudModel === index}
+                className={cloudModel === index ? "is-selected" : ""}
+                onClick={() => setCloudModel(index)}
+              >
+                <strong>{short}</strong>
+                <span>{name}</span>
+              </button>
+            ))}
+          </div>
+          <div className="cloud-model-detail" aria-live="polite">
+            <div>
+              <span>SELECTED MODEL</span>
+              <h3>
+                {cloudModels[cloudModel][0]} / {cloudModels[cloudModel][1]}
+              </h3>
+              <p>{cloudModels[cloudModel][2]}</p>
+            </div>
+            <div className="cloud-model-meta">
+              <span>AZURE EXAMPLE</span>
+              <strong>{cloudModels[cloudModel][3]}</strong>
+              <span>EZROME FIT</span>
+              <strong>{cloudModels[cloudModel][4]}</strong>
+            </div>
+          </div>
+          <small className="systems-learning">
+            Learning outcome: as you move from IaaS to SaaS, the provider
+            manages more of the stack and you focus more on using the
+            capability.
+          </small>
+        </div>
+        <div className="watch-description systems-build-prompt">
+          <div>
+            <span>BUILD LAB PROMPT</span>
+            <h3>Pick one layer. Explain it in your own signal.</h3>
+            <p>
+              Create a short video, diagram, post, or mini-demo showing how one
+              of these foundations shapes the apps people use every day. Draft
+              it in Creator Studio, then share the build process with the
+              community.
+            </p>
+          </div>
+          <Link href="/create" className="top-create">
+            Open Creator Studio <ArrowRight className="size-4" />
+          </Link>
+        </div>
+        <div className="systems-data-strip">
+          <Database className="size-5" />
+          <span>LEARN BY TRACING THE FLOW</span>
+          <strong>
+            hardware → system software → application → data → human outcome
+          </strong>
+        </div>
+      </section>
+    </HubShell>
+  );
 }

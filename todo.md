@@ -92,3 +92,6 @@
 - [x] Fix and verify any Shorts interaction issues found during the release review.
 - [x] Save the reviewed Shorts interface checkpoint after automated and visual validation.
 - [x] Save a post-Shorts-review checkpoint and push/verify the reviewed commit in the private GitHub repository.
+- [x] Add the attached Principles of Coding lesson to EZROME Foundations with the full problem-solving cycle and learning sequence.
+- [x] Add an interactive coding-principles practice surface connected to EZROME examples.
+- [x] Add automated coverage and verify the lesson on responsive layouts before checkpointing.
