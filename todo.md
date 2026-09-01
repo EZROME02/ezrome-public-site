@@ -95,3 +95,4 @@
 - [x] Add the attached Principles of Coding lesson to EZROME Foundations with the full problem-solving cycle and learning sequence.
 - [x] Add an interactive coding-principles practice surface connected to EZROME examples.
 - [x] Add automated coverage and verify the lesson on responsive layouts before checkpointing.
+- [x] Verify or update the recurring Instagram planner for @xillahwethuii to exactly one approval-ready draft on Monday, Wednesday, and Friday with the 40/35/15/10 queue mix and no auto-publishing.
