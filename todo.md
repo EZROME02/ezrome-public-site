@@ -112,3 +112,4 @@
 - [x] Run the current `main` branch automated test suite and verify the branch commit before changing repository visibility.
 - [x] Change `EZROME02/ezrome-public-site` to public visibility and verify the public repository state.
 - [x] Review Wikipedia eligibility and prepare a neutral, source-based submission handoff; do not auto-publish or make undisclosed conflict-of-interest edits.
+- [x] Add a comprehensive repository README covering EZROME features, architecture, local setup, testing, deployment, Android packaging, security, and owner-controlled launch gates.
