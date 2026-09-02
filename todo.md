@@ -96,3 +96,16 @@
 - [x] Add an interactive coding-principles practice surface connected to EZROME examples.
 - [x] Add automated coverage and verify the lesson on responsive layouts before checkpointing.
 - [x] Verify or update the recurring Instagram planner for @xillahwethuii to exactly one approval-ready draft on Monday, Wednesday, and Friday with the 40/35/15/10 queue mix and no auto-publishing.
+- [x] Add explicit OAuth redirect-pending, offline, cancellation, expiry, and server-error status handling without exposing secrets.
+- [x] Add accessible sign-in status messaging and duplicate-click-safe retry behavior.
+- [x] Add OAuth regression coverage and verify the hardened flow before checkpointing.
+- [x] Wire OAuth cancellation detection from the actual callback/return path into the shared auth status.
+- [x] Apply status messaging and duplicate-click-safe login behavior to DashboardLayout and every remaining sign-in entry point.
+- [x] Add integration-level regression coverage for pending state, retry behavior, cancellation return, and protected-route sign-in states.
+- [x] Diagnose the Android “Disconnected from server, please try again” failure and determine the actual API/origin cause.
+- [x] Add a mobile-safe error and retry experience without weakening OAuth or API authentication.
+- [x] Add regression coverage and verify the fix on responsive layouts before checkpointing.
+- [x] Add behavioral auth integration tests for pending, retry, cancelled, expired, and offline states across protected sign-in surfaces.
+- [x] Add a callback-return test that verifies `oauth_error=cancelled|expired|error` reaches the rendered UI state.
+- [x] Add real behavioral tests that render protected sign-in surfaces with mocked auth states and verify pending, offline, cancelled, expired, error, and retry interactions.
+- [x] Add callback-query behavior tests that mount the auth status flow with `oauth_error=cancelled|expired|error` and verify the rendered message and retry control.

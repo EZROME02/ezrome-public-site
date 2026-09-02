@@ -1,5 +1,6 @@
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { AuthStatusMessage } from "@/components/AuthStatusMessage";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,12 +20,11 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { startLogin } from "@/const";
 import { useIsMobile } from "@/hooks/useMobile";
 import { LayoutDashboard, LogOut, PanelLeft, Users } from "lucide-react";
-import { CSSProperties, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
-import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
+import { DashboardLayoutSkeleton } from "./DashboardLayoutSkeleton";
 import { Button } from "./ui/button";
 
 const menuItems = [
@@ -46,14 +46,14 @@ export default function DashboardLayout({
     const saved = localStorage.getItem(SIDEBAR_WIDTH_KEY);
     return saved ? parseInt(saved, 10) : DEFAULT_WIDTH;
   });
-  const { loading, user } = useAuth();
+  const { loading, user, beginLogin, loginStatus, loginMessage } = useAuth();
 
   useEffect(() => {
     localStorage.setItem(SIDEBAR_WIDTH_KEY, sidebarWidth.toString());
   }, [sidebarWidth]);
 
   if (loading) {
-    return <DashboardLayoutSkeleton />
+    return <DashboardLayoutSkeleton />;
   }
 
   if (!user) {
@@ -65,16 +65,29 @@ export default function DashboardLayout({
               Sign in to continue
             </h1>
             <p className="text-sm text-muted-foreground text-center max-w-sm">
-              Access to this dashboard requires authentication. Continue to launch the login flow.
+              Access to this dashboard requires authentication. Continue to
+              launch the login flow.
             </p>
           </div>
           <Button
-            onClick={() => startLogin()}
+            onClick={beginLogin}
+            disabled={loginStatus === "redirecting"}
             size="lg"
             className="w-full shadow-lg hover:shadow-xl transition-all"
+            aria-describedby={
+              loginMessage ? "dashboard-auth-status" : undefined
+            }
           >
-            Sign in
+            {loginStatus === "redirecting"
+              ? "Opening secure sign-in…"
+              : "Sign in"}
           </Button>
+          <AuthStatusMessage
+            status={loginStatus}
+            id="dashboard-auth-status"
+            onRetry={beginLogin}
+            className="auth-status auth-status-inline"
+          />
         </div>
       </div>
     );

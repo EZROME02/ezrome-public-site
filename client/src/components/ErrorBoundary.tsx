@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { AlertTriangle, RotateCcw } from "lucide-react";
+import { AlertTriangle, RotateCcw, WifiOff } from "lucide-react";
 import { Component, ReactNode } from "react";
 
 interface Props {
@@ -9,6 +9,21 @@ interface Props {
 interface State {
   hasError: boolean;
   error: Error | null;
+}
+
+function connectionMessage(error: Error | null) {
+  const text = error?.message.toLowerCase() ?? "";
+  if (typeof navigator !== "undefined" && !navigator.onLine) {
+    return "You appear to be offline. Reconnect to the internet and try again.";
+  }
+  if (
+    text.includes("disconnect") ||
+    text.includes("network") ||
+    text.includes("fetch")
+  ) {
+    return "EZROME lost its connection to the server. Check your connection and try again.";
+  }
+  return "EZROME could not load this screen. Please try again.";
 }
 
 class ErrorBoundary extends Component<Props, State> {
@@ -23,32 +38,39 @@ class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
+      const offline = typeof navigator !== "undefined" && !navigator.onLine;
       return (
-        <div className="flex items-center justify-center min-h-screen p-8 bg-background">
-          <div className="flex flex-col items-center w-full max-w-2xl p-8">
-            <AlertTriangle
-              size={48}
-              className="text-destructive mb-6 flex-shrink-0"
-            />
-
-            <h2 className="text-xl mb-4">An unexpected error occurred.</h2>
-
-            <div className="p-4 w-full rounded bg-muted overflow-auto mb-6">
-              <pre className="text-sm text-muted-foreground whitespace-break-spaces">
-                {this.state.error?.stack}
-              </pre>
-            </div>
-
+        <div
+          className="flex min-h-screen items-center justify-center bg-background p-8"
+          role="alert"
+        >
+          <div className="flex w-full max-w-lg flex-col items-center p-8 text-center">
+            {offline ? (
+              <WifiOff
+                size={48}
+                className="mb-6 text-destructive"
+                aria-hidden="true"
+              />
+            ) : (
+              <AlertTriangle
+                size={48}
+                className="mb-6 text-destructive"
+                aria-hidden="true"
+              />
+            )}
+            <h2 className="mb-4 text-xl">Connection interrupted</h2>
+            <p className="mb-6 text-muted-foreground">
+              {connectionMessage(this.state.error)}
+            </p>
             <button
               onClick={() => window.location.reload()}
               className={cn(
-                "flex items-center gap-2 px-4 py-2 rounded-lg",
-                "bg-primary text-primary-foreground",
-                "hover:opacity-90 cursor-pointer"
+                "flex cursor-pointer items-center gap-2 rounded-lg px-4 py-2",
+                "bg-primary text-primary-foreground hover:opacity-90"
               )}
             >
-              <RotateCcw size={16} />
-              Reload Page
+              <RotateCcw size={16} aria-hidden="true" />
+              Try again
             </button>
           </div>
         </div>

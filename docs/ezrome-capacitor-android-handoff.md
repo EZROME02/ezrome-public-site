@@ -66,3 +66,15 @@ The repository-side work is complete when `pnpm test`, `pnpm check`, `pnpm build
 [1]: https://capacitorjs.com/docs/android — Capacitor, “Android”.
 
 [2]: https://developer.android.com/studio/publish/app-signing — Android Developers, “Sign your app”.
+
+## Runtime origin requirement
+
+The Android wrapper must load EZROME from an HTTPS deployment origin so relative API requests such as `/api/trpc`, OAuth callbacks, and media routes resolve to the running server. The current Capacitor configuration defaults to the verified EZROME deployment domain and accepts `CAPACITOR_SERVER_URL` for the future Azure/Cloudflare production origin.
+
+Before building a test bundle, set the origin explicitly when using a staging or production deployment:
+
+```bash
+CAPACITOR_SERVER_URL=https://your-verified-ezrome-origin.example pnpm cap:sync
+```
+
+Do not use `http://localhost`, a laptop LAN address, or an unverified origin for a Play test bundle. The app should be rebuilt after changing this value. If the origin is unavailable, the app can only show a network error; the Android wrapper cannot make server-backed authentication and feeds work offline by itself.

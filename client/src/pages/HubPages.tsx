@@ -1,5 +1,5 @@
 import { useAuth } from "@/_core/hooks/useAuth";
-import { startLogin } from "@/const";
+import { AuthStatusMessage } from "@/components/AuthStatusMessage";
 import { ChannelGlyph, HubShell } from "@/components/HubShell";
 import { Button } from "@/components/ui/button";
 import { trpc } from "@/lib/trpc";
@@ -49,7 +49,8 @@ const formatDate = (date: Date | string) =>
   });
 
 export function Gate({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, beginLogin, loginStatus, loginMessage } =
+    useAuth();
   if (loading)
     return <div className="lane-blank">Loading your creator station…</div>;
   if (!isAuthenticated)
@@ -61,9 +62,25 @@ export function Gate({ children }: { children: React.ReactNode }) {
           Sign in to publish a signal, create a channel, follow creators, or
           join the discussion.
         </p>
-        <button className="loop-primary" onClick={startLogin}>
-          Sign in to continue <ArrowRight className="size-4" />
+        <button
+          className="loop-primary"
+          onClick={beginLogin}
+          disabled={loginStatus === "redirecting"}
+          aria-describedby={
+            loginMessage ? "ezrome-gate-auth-status" : undefined
+          }
+        >
+          {loginStatus === "redirecting"
+            ? "Opening secure sign-in…"
+            : "Sign in to continue"}{" "}
+          <ArrowRight className="size-4" />
         </button>
+        <AuthStatusMessage
+          status={loginStatus}
+          id="ezrome-gate-auth-status"
+          onRetry={beginLogin}
+          className="auth-status auth-status-inline"
+        />
       </div>
     );
   return <>{children}</>;
@@ -392,7 +409,7 @@ function DiscussionComposer({
 }: {
   fixedTopic?: "community" | "football";
 }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, beginLogin, loginStatus, loginMessage } = useAuth();
   const [body, setBody] = useState("");
   const [topic, setTopic] = useState<"community" | "football" | "build">(
     fixedTopic || "community"
@@ -410,7 +427,21 @@ function DiscussionComposer({
     return (
       <div className="composer-locked">
         <Sparkles className="size-4" /> Sign in to post a signal, question,
-        match read, or build note.<button onClick={startLogin}>Sign in</button>
+        match read, or build note.
+        <button onClick={beginLogin} disabled={loginStatus === "redirecting"}>
+          {loginStatus === "redirecting" ? "Opening…" : "Sign in"}
+        </button>
+        {loginMessage &&
+          loginStatus !== "idle" &&
+          loginStatus !== "authenticated" && (
+            <span
+              className="auth-status-inline"
+              role="status"
+              aria-live="polite"
+            >
+              {loginMessage}
+            </span>
+          )}
       </div>
     );
   return (
@@ -897,7 +928,7 @@ const toBase64 = (file: File) =>
   });
 
 export function UploadStudio() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, beginLogin, loginStatus, loginMessage } = useAuth();
   const [, setLocation] = useLocation();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -1085,7 +1116,7 @@ export function UploadStudio() {
 }
 
 export function NotificationsPage() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, beginLogin, loginStatus, loginMessage } = useAuth();
   const list = trpc.media.notifications.useQuery(undefined, {
     enabled: isAuthenticated,
   });

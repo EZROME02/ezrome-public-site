@@ -1,4 +1,10 @@
-import { COOKIE_NAME, ONE_YEAR_MS, OAUTH_STATE_COOKIE, decodeOAuthState } from "@shared/const";
+import {
+  COOKIE_NAME,
+  ONE_YEAR_MS,
+  OAUTH_STATE_COOKIE,
+  decodeOAuthState,
+} from "@shared/const";
+import { classifyOAuthCallback } from "@shared/oauthStatus";
 import { parse as parseCookieHeader } from "cookie";
 import type { Express, Request, Response } from "express";
 import * as db from "../db";
@@ -10,33 +16,80 @@ function getQueryParam(req: Request, key: string): string | undefined {
   return typeof value === "string" ? value : undefined;
 }
 
+function safeAuthRedirect(
+  res: Response,
+  reason: "cancelled" | "expired" | "error"
+) {
+  res.redirect(302, `/?oauth_error=${reason}`);
+}
+
 export function registerOAuthRoutes(app: Express) {
   app.get("/api/oauth/callback", async (req: Request, res: Response) => {
     const code = getQueryParam(req, "code");
     const state = getQueryParam(req, "state");
+    const providerError = getQueryParam(req, "error");
+    const providerErrorDescription = getQueryParam(req, "error_description");
+
+    if (providerError || providerErrorDescription) {
+      if (!state) {
+        safeAuthRedirect(res, "error");
+        return;
+      }
+
+      try {
+        const { nonce } = decodeOAuthState(state);
+        const expectedNonce = parseCookieHeader(req.headers.cookie ?? "")[
+          OAUTH_STATE_COOKIE
+        ];
+        if (!nonce || nonce !== expectedNonce) {
+          safeAuthRedirect(res, "expired");
+          return;
+        }
+        res.clearCookie(OAUTH_STATE_COOKIE, {
+          path: "/",
+          secure: true,
+          sameSite: "none",
+        });
+      } catch {
+        safeAuthRedirect(res, "expired");
+        return;
+      }
+
+      safeAuthRedirect(
+        res,
+        classifyOAuthCallback({
+          error: providerError,
+          description: providerErrorDescription,
+        })
+      );
+      return;
+    }
 
     if (!code || !state) {
-      res.status(400).json({ error: "code and state are required" });
+      safeAuthRedirect(res, "error");
       return;
     }
-
-    // CSRF guard: the nonce in `state` must match the one-time cookie that
-    // startLogin set in the browser that began this login. An attacker can
-    // forge `state`, but cannot plant this cookie in the victim's browser.
-    const { nonce } = decodeOAuthState(state);
-    const expectedNonce = parseCookieHeader(req.headers.cookie ?? "")[OAUTH_STATE_COOKIE];
-    if (!nonce || nonce !== expectedNonce) {
-      res.status(403).json({ error: "invalid oauth state" });
-      return;
-    }
-    res.clearCookie(OAUTH_STATE_COOKIE, { path: "/", secure: true, sameSite: "none" });
 
     try {
+      const { nonce } = decodeOAuthState(state);
+      const expectedNonce = parseCookieHeader(req.headers.cookie ?? "")[
+        OAUTH_STATE_COOKIE
+      ];
+      if (!nonce || nonce !== expectedNonce) {
+        safeAuthRedirect(res, "expired");
+        return;
+      }
+      res.clearCookie(OAUTH_STATE_COOKIE, {
+        path: "/",
+        secure: true,
+        sameSite: "none",
+      });
+
       const tokenResponse = await sdk.exchangeCodeForToken(code, state);
       const userInfo = await sdk.getUserInfo(tokenResponse.accessToken);
 
       if (!userInfo.openId) {
-        res.status(400).json({ error: "openId missing from user info" });
+        safeAuthRedirect(res, "error");
         return;
       }
 
@@ -54,12 +107,14 @@ export function registerOAuthRoutes(app: Express) {
       });
 
       const cookieOptions = getSessionCookieOptions(req);
-      res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
-
+      res.cookie(COOKIE_NAME, sessionToken, {
+        ...cookieOptions,
+        maxAge: ONE_YEAR_MS,
+      });
       res.redirect(302, "/");
     } catch (error) {
       console.error("[OAuth] Callback failed", error);
-      res.status(500).json({ error: "OAuth callback failed" });
+      safeAuthRedirect(res, "error");
     }
   });
 }
