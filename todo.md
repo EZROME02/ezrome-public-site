@@ -109,3 +109,6 @@
 - [x] Add a callback-return test that verifies `oauth_error=cancelled|expired|error` reaches the rendered UI state.
 - [x] Add real behavioral tests that render protected sign-in surfaces with mocked auth states and verify pending, offline, cancelled, expired, error, and retry interactions.
 - [x] Add callback-query behavior tests that mount the auth status flow with `oauth_error=cancelled|expired|error` and verify the rendered message and retry control.
+- [x] Run the current `main` branch automated test suite and verify the branch commit before changing repository visibility.
+- [x] Change `EZROME02/ezrome-public-site` to public visibility and verify the public repository state.
+- [x] Review Wikipedia eligibility and prepare a neutral, source-based submission handoff; do not auto-publish or make undisclosed conflict-of-interest edits.
